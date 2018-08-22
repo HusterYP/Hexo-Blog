@@ -1,0 +1,679 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>队列 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言队列相关操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="队列">
+<meta property="og:url" content="https://husteryp.github.io/2017/08/03/队列/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言队列相关操作">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-03T13:55:04.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="队列">
+<meta name="twitter:description" content="前言队列相关操作">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/03/队列/" title="队列" itemprop="url">队列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-03T12:27:58.000Z" itemprop="datePublished"> 发表于 2017-08-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#队列"><span class="toc-number">2.</span> <span class="toc-text">队列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环队列"><span class="toc-number">3.</span> <span class="toc-text">循环队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据结构"><span class="toc-number">3.1.</span> <span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">3.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#入队操作"><span class="toc-number">3.3.</span> <span class="toc-text">入队操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#出队操作"><span class="toc-number">3.4.</span> <span class="toc-text">出队操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求队长"><span class="toc-number">3.5.</span> <span class="toc-text">求队长</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态循环队列"><span class="toc-number">4.</span> <span class="toc-text">动态循环队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据结构-1"><span class="toc-number">4.1.</span> <span class="toc-text">数据结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#链队列"><span class="toc-number">5.</span> <span class="toc-text">链队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-1"><span class="toc-number">5.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#出队"><span class="toc-number">5.2.</span> <span class="toc-text">出队</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#队列的其他存储结构"><span class="toc-number">6.</span> <span class="toc-text">队列的其他存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#循环多队列"><span class="toc-number">6.1.</span> <span class="toc-text">循环多队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化-2"><span class="toc-number">6.1.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#入队"><span class="toc-number">6.1.2.</span> <span class="toc-text">入队</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#出队-1"><span class="toc-number">6.1.3.</span> <span class="toc-text">出队</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态循环多队列"><span class="toc-number">6.2.</span> <span class="toc-text">动态循环多队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#链式多队列"><span class="toc-number">6.3.</span> <span class="toc-text">链式多队列</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>队列相关操作</p>
+<hr>
+<a id="more"></a>
+<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><blockquote>
+<p>先进先出，允许插入端为队尾，允许删除端为队头；为了避免溢出，常使用循环队列的形式</p>
+</blockquote>
+<h1 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h1><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><blockquote>
+<p>顺序存储结构</p>
+</blockquote>
+<pre><code>#define ERROR -1
+#define OK 1
+#define Elemtype int
+#define INITSIZE 20
+
+typedef struct
+{
+    Elemtype *elem;
+    int front;
+    int rear;
+    int QueueSize;
+}SeqQueue; 
+</code></pre><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><pre><code>int Init(SeqQueue* Q)
+{
+    Q-&gt;elem = (Elemtype*)malloc(sizeof(Elemtype)*INITSIZE);
+    if (!Q-&gt;elem)
+        return ERROR;
+    Q-&gt;QueueSize = INITSIZE;
+    Q-&gt;front = Q-&gt;rear = 0;        //这里只要二者相等就行了，其实不需要等于0
+    return OK;
+}
+</code></pre><h2 id="入队操作"><a href="#入队操作" class="headerlink" title="入队操作"></a>入队操作</h2><blockquote>
+<p>注音入队判断队满的情况，当队尾指针之后一个位置为队头的话即队满，但是其实这时候还有一个位置可以存储，准确的说判断队满是要队尾指针增加到和队头指针相等，但是由于判断队空时也是这样判断的，为了避免冲突，所以队满的判断要像下面这样咯</p>
+</blockquote>
+<pre><code>int EnQueue(SeqQueue* Q, Elemtype e)
+{
+    if ((Q-&gt;rear + 1) % Q-&gt;QueueSize == Q-&gt;front)
+        return ERROR;
+    Q-&gt;elem[Q-&gt;rear] = e;
+    Q-&gt;rear = (Q-&gt;rear + 1) % Q-&gt;QueueSize;
+    return OK;
+}
+</code></pre><h2 id="出队操作"><a href="#出队操作" class="headerlink" title="出队操作"></a>出队操作</h2><blockquote>
+<p>当队尾指针和队头指针相同时，判断队空</p>
+</blockquote>
+<pre><code>int DeQueue(SeqQueue* Q, Elemtype* e)
+{
+    if (Q-&gt;rear == Q-&gt;front)
+        return ERROR;
+    *e = Q-&gt;elem[Q-&gt;front];
+    Q-&gt;front = (Q-&gt;front + 1) % Q-&gt;QueueSize;
+    return OK;
+}
+</code></pre><h2 id="求队长"><a href="#求队长" class="headerlink" title="求队长"></a>求队长</h2><pre><code>int QueLength(SeqQueue* Q)
+{
+    return Q-&gt;rear - Q-&gt;front + Q-&gt;QueueSize;
+}
+</code></pre><h1 id="动态循环队列"><a href="#动态循环队列" class="headerlink" title="动态循环队列"></a>动态循环队列</h1><blockquote>
+<p>动态循环队列是在队满是通过<code>realloc</code>动态扩容；当存储完数据，发现数据空间有剩余时，选择性的对空间进行回收</p>
+</blockquote>
+<h2 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h2><pre><code>#define QUEUE_INITSIZE 20  //初始长度
+#define QUEUE_INCREAMENT 5     //增加长度
+#define QUEUE_PLANSIZE 10     //回收的空闲预定值
+#define QUEUE_PERCENT 0.5    //回收的空闲预定比例
+#define Elemtype int
+typedef struct
+{
+    Elemtype* elem;
+    int rear;
+    int front;
+    int QueueSize;
+}SeqQueue;
+</code></pre><h1 id="链队列"><a href="#链队列" class="headerlink" title="链队列"></a>链队列</h1><blockquote>
+<p>基于链式存储结构，适合数据元素变动比较大的时候</p>
+</blockquote>
+<pre><code>#define ERROR -1
+#define OK 1
+#define Elemtype int
+
+typedef struct node
+{
+    Elemtype data;
+    struct node* next;
+}QueueNode;
+typedef struct
+{
+    QueueNode *front;
+    QueueNode *rear;
+}LinkQueue;
+</code></pre><h2 id="初始化-1"><a href="#初始化-1" class="headerlink" title="初始化"></a>初始化</h2><blockquote>
+<p>初始化时只需要分配头指针的空间即可，不需要分配尾指针的空间</p>
+</blockquote>
+<pre><code>int Init(LinkQueue* Q)
+{
+    Q-&gt;front = (QueueNode*)malloc(sizeof(QueueNode));
+    Q-&gt;front-&gt;next = NULL;
+    Q-&gt;rear = Q-&gt;front;
+    return OK;
+}
+</code></pre><p>##入队</p>
+<pre><code>int EnQueue(LinkQueue* Q, Elemtype e)
+{
+    QueueNode* p;
+    p = (QueueNode*)malloc(sizeof(QueueNode));
+    p-&gt;data = e;
+    p-&gt;next = NULL;        //记住置空
+    Q-&gt;rear-&gt;next = p;    
+    Q-&gt;rear = p;
+    return OK;
+}
+</code></pre><h2 id="出队"><a href="#出队" class="headerlink" title="出队"></a>出队</h2><blockquote>
+<p>注意出队时，因为尾指针没有分配空间，所以下面的<code>p</code>又可能和尾指针同指向，所以在<code>free(p)</code>的时候还要判断是否和尾指针同指向</p>
+</blockquote>
+<pre><code>int DeQueue(LinkQueue* Q, Elemtype* e)
+{
+    QueueNode* p;
+    if (Q-&gt;rear == Q-&gt;front)
+        return ERROR;
+    p = Q-&gt;front-&gt;next;
+    *e = p-&gt;data;
+    Q-&gt;front-&gt;next = p-&gt;next;
+    if (p == Q-&gt;rear)     //判断是否和尾指针同指向
+        Q-&gt;rear = Q-&gt;front;
+    free(p);
+    return OK;
+}
+</code></pre><h1 id="队列的其他存储结构"><a href="#队列的其他存储结构" class="headerlink" title="队列的其他存储结构"></a>队列的其他存储结构</h1><h2 id="循环多队列"><a href="#循环多队列" class="headerlink" title="循环多队列"></a>循环多队列</h2><h3 id="初始化-2"><a href="#初始化-2" class="headerlink" title="初始化"></a>初始化</h3><pre><code>int Init(MultyQueue* Q)
+{
+    for (int i = 0; i &lt; N; i++)
+        Q-&gt;f[i].front = Q-&gt;f[i].rear = 0;
+    return OK;
+}
+</code></pre><h3 id="入队"><a href="#入队" class="headerlink" title="入队"></a>入队</h3><pre><code>int EnQueue(MultyQueue* Q, int i, Elemtype e)
+{
+    if (i&lt;1 || i&gt;N)        //注意i表示的是第i条队列
+        return ERROR;
+    if ((Q-&gt;f[i - 1].rear + 1) % M == Q-&gt;f[i - 1].front)   //判断队满
+        return ERROR;
+    Q-&gt;queue[i - 1][Q-&gt;f[i - 1].rear] = e;
+    Q-&gt;f[i - 1].rear = (Q-&gt;f[i - 1].rear + 1) % M;
+    return OK;
+}
+</code></pre><h3 id="出队-1"><a href="#出队-1" class="headerlink" title="出队"></a>出队</h3><pre><code>int EnQueue(MultyQueue* Q, int i, Elemtype e)
+{
+    if (i&lt;1 || i&gt;N)
+        return ERROR;
+    if ((Q-&gt;f[i - 1].rear + 1) % M == Q-&gt;f[i - 1].front)
+        return ERROR;
+    Q-&gt;queue[i - 1][Q-&gt;f[i - 1].rear] = e;
+    Q-&gt;f[i - 1].rear = (Q-&gt;f[i - 1].rear + 1) % M;
+    return OK;
+}
+</code></pre><h2 id="动态循环多队列"><a href="#动态循环多队列" class="headerlink" title="动态循环多队列"></a>动态循环多队列</h2><h2 id="链式多队列"><a href="#链式多队列" class="headerlink" title="链式多队列"></a>链式多队列</h2>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据结构/">数据结构</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/08/03/队列/" data-title="队列 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/04/串/" title="串">
+  <strong>上一篇：</strong><br/>
+  <span>
+  串</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/08/03/夏令营总结/"  title="夏令营总结">
+ <strong>下一篇：</strong><br/> 
+ <span>夏令营总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/08/03/队列/" data-title="队列" data-url="https://husteryp.github.io/2017/08/03/队列/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#队列"><span class="toc-number">2.</span> <span class="toc-text">队列</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环队列"><span class="toc-number">3.</span> <span class="toc-text">循环队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据结构"><span class="toc-number">3.1.</span> <span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">3.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#入队操作"><span class="toc-number">3.3.</span> <span class="toc-text">入队操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#出队操作"><span class="toc-number">3.4.</span> <span class="toc-text">出队操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求队长"><span class="toc-number">3.5.</span> <span class="toc-text">求队长</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态循环队列"><span class="toc-number">4.</span> <span class="toc-text">动态循环队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据结构-1"><span class="toc-number">4.1.</span> <span class="toc-text">数据结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#链队列"><span class="toc-number">5.</span> <span class="toc-text">链队列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-1"><span class="toc-number">5.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#出队"><span class="toc-number">5.2.</span> <span class="toc-text">出队</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#队列的其他存储结构"><span class="toc-number">6.</span> <span class="toc-text">队列的其他存储结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#循环多队列"><span class="toc-number">6.1.</span> <span class="toc-text">循环多队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化-2"><span class="toc-number">6.1.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#入队"><span class="toc-number">6.1.2.</span> <span class="toc-text">入队</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#出队-1"><span class="toc-number">6.1.3.</span> <span class="toc-text">出队</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态循环多队列"><span class="toc-number">6.2.</span> <span class="toc-text">动态循环多队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#链式多队列"><span class="toc-number">6.3.</span> <span class="toc-text">链式多队列</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

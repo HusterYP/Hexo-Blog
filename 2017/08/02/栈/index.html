@@ -1,0 +1,792 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>栈 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言数据结构中栈的相关操作，顺序栈，链栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈">
+<meta property="og:url" content="https://husteryp.github.io/2017/08/02/栈/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言数据结构中栈的相关操作，顺序栈，链栈">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-02T09:19:11.623Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="栈">
+<meta name="twitter:description" content="前言数据结构中栈的相关操作，顺序栈，链栈">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/02/栈/" title="栈" itemprop="url">栈</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-02T05:59:18.000Z" itemprop="datePublished"> 发表于 2017-08-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#栈"><span class="toc-number">2.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#顺序栈"><span class="toc-number">3.</span> <span class="toc-text">顺序栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述"><span class="toc-number">3.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">3.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈"><span class="toc-number">3.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈"><span class="toc-number">3.4.</span> <span class="toc-text">弹栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取栈顶元素"><span class="toc-number">3.5.</span> <span class="toc-text">取栈顶元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断栈空"><span class="toc-number">3.6.</span> <span class="toc-text">判断栈空</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清空栈"><span class="toc-number">3.7.</span> <span class="toc-text">清空栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#链栈"><span class="toc-number">4.</span> <span class="toc-text">链栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述-1"><span class="toc-number">4.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-1"><span class="toc-number">4.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈-1"><span class="toc-number">4.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈-1"><span class="toc-number">4.4.</span> <span class="toc-text">弹栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取栈顶"><span class="toc-number">4.5.</span> <span class="toc-text">取栈顶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清空栈-1"><span class="toc-number">4.6.</span> <span class="toc-text">清空栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#共享栈-双端栈"><span class="toc-number">5.</span> <span class="toc-text">共享栈(双端栈)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述-2"><span class="toc-number">5.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-2"><span class="toc-number">5.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈-2"><span class="toc-number">5.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈-2"><span class="toc-number">5.4.</span> <span class="toc-text">弹栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态栈"><span class="toc-number">6.</span> <span class="toc-text">动态栈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多链栈"><span class="toc-number">7.</span> <span class="toc-text">多链栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述-3"><span class="toc-number">7.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-3"><span class="toc-number">7.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈-3"><span class="toc-number">7.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈-3"><span class="toc-number">7.4.</span> <span class="toc-text">弹栈</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>数据结构中栈的相关操作，顺序栈，链栈</p>
+<hr>
+<a id="more"></a>
+<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><blockquote>
+<p>栈是一种建立在线性表上的操作，是限制在表的同一端进行插入删除的<br>线性表，允许插入和删除的一端叫栈顶，固定端为栈底，分为顺序栈，<br>链栈；基本特点是<strong>先进后出</strong>.</p>
+</blockquote>
+<h1 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h1><blockquote>
+<p>顺序栈建立在线性表的顺序存储上，基本思想差不多</p>
+</blockquote>
+<h2 id="数据描述"><a href="#数据描述" class="headerlink" title="数据描述"></a>数据描述</h2><pre><code>#define ERROR -1 
+#define OK 1
+#define INITSIZE 10  //初始长度
+#define INCREAMENT 2 //空间不够时每次增加的长度
+#define Elemtype int
+
+typedef struct
+{
+    Elemtype *elem;
+    int top;    //栈顶指针，永远指向栈顶元素后面一个位置
+    int stacksize;
+}SeqStack;
+</code></pre><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><pre><code>int Init(SeqStack *S)    //常用一个返回值来判断是否成功
+{
+    S-&gt;elem = (Elemtype*)malloc(sizeof(Elemtype)*INITSIZE);
+    if (!S-&gt;elem)    //判断是否动态分配成功
+        return ERROR;
+    S-&gt;top = 0;        //为0表示空栈
+    S-&gt;stacksize = INITSIZE;
+    return OK;
+}
+</code></pre><h2 id="压栈"><a href="#压栈" class="headerlink" title="压栈"></a>压栈</h2><pre><code>int Push(SeqStack *S, Elemtype e)
+{
+    Elemtype* temp;
+    int newspaceSize;
+    if (S-&gt;top &gt;= S-&gt;stacksize - 1)    //若空间不足
+    {
+        temp = (Elemtype*)realloc(S-&gt;elem, sizeof (Elemtype)*(S-&gt;stacksize + INCREAMENT));  //见注
+        if (!temp)
+            return ERROR;
+        S-&gt;elem = temp;
+        S-&gt;stacksize += INCREAMENT;
+    }
+    S-&gt;elem[S-&gt;top] = e;
+    S-&gt;top++;    //栈顶指针后移
+    return OK;
+}
+</code></pre><p><strong>注 ：</strong>关于<code>realloc</code>的使用可见<a href="http://www.cnblogs.com/ladd/archive/2012/06/30/2571420.html" target="_blank" rel="external">realloc用法</a></p>
+<h2 id="弹栈"><a href="#弹栈" class="headerlink" title="弹栈"></a>弹栈</h2><pre><code>int Pop(SeqStack* S, Elemtype *e)
+{
+    if (S-&gt;top &lt;= 0)        //是否空栈
+        return ERROR;
+    *e = S-&gt;elem[S-&gt;top - 1];     
+    S-&gt;top--;
+    return OK;
+}
+</code></pre><h2 id="取栈顶元素"><a href="#取栈顶元素" class="headerlink" title="取栈顶元素"></a>取栈顶元素</h2><pre><code>int GetTop(SeqStack* S, Elemtype* e)
+{
+    if (S-&gt;top &lt;= 0)
+        return ERROR;
+    *e = S-&gt;elem[S-&gt;top - 1];
+    return OK;
+}
+</code></pre><h2 id="判断栈空"><a href="#判断栈空" class="headerlink" title="判断栈空"></a>判断栈空</h2><pre><code>int StackEmpty(SeqStack *S)
+{
+    if (S-&gt;top &lt;= 0)
+        return 1;
+    return 0;
+}
+</code></pre><h2 id="清空栈"><a href="#清空栈" class="headerlink" title="清空栈"></a>清空栈</h2><blockquote>
+<p>将栈顶指针置0，原来栈中存储的数据视为随机值，即清空</p>
+</blockquote>
+<pre><code>int ClearStack(SeqStack* S)
+{
+    S-&gt;top = 0;
+    return OK;
+}
+</code></pre><hr>
+<h1 id="链栈"><a href="#链栈" class="headerlink" title="链栈"></a>链栈</h1><blockquote>
+<p>链栈建立在带头结点的单链表基础上</p>
+</blockquote>
+<h2 id="数据描述-1"><a href="#数据描述-1" class="headerlink" title="数据描述"></a>数据描述</h2><pre><code>#define ERROR -1
+#define OK 1
+#define Elemtype int
+
+typedef struct node
+{
+    Elemtype data;
+    struct node *next;
+}ListStack;
+</code></pre><h2 id="初始化-1"><a href="#初始化-1" class="headerlink" title="初始化"></a>初始化</h2><pre><code>ListStack* Init()
+{
+    ListStack* S;
+    S = (ListStack*)malloc(sizeof(ListStack));
+    S-&gt;next = NULL;
+    return S;
+}
+</code></pre><h2 id="压栈-1"><a href="#压栈-1" class="headerlink" title="压栈"></a>压栈</h2><pre><code>int Push(ListStack* S, Elemtype e)
+{
+    ListStack* p;
+    p = (ListStack*)malloc(sizeof(ListStack));
+    p-&gt;data = e;
+    p-&gt;next = S-&gt;next;
+    S-&gt;next = p;
+    return OK;
+}
+</code></pre><h2 id="弹栈-1"><a href="#弹栈-1" class="headerlink" title="弹栈"></a>弹栈</h2><pre><code>int Pop(ListStack* S, Elemtype* e)
+{
+    ListStack* p;
+    if (S-&gt;next == NULL)
+        return ERROR;
+    p = S-&gt;next;
+    *e = p-&gt;data;
+    S-&gt;next = p-&gt;next;
+    free(p);
+    return OK;
+}
+</code></pre><h2 id="取栈顶"><a href="#取栈顶" class="headerlink" title="取栈顶"></a>取栈顶</h2><pre><code>int GetTop(ListStack* S, Elemtype* e)
+{
+    if (S-&gt;next == NULL)
+        return ERROR;
+    *e = S-&gt;next-&gt;data;
+    return OK;
+}
+</code></pre><h2 id="清空栈-1"><a href="#清空栈-1" class="headerlink" title="清空栈"></a>清空栈</h2><pre><code>int ClearStack(ListStack* S)
+{
+    ListStack* p, *q;
+    for (p = S; p != NULL; p = q)
+    {
+        q = p-&gt;next;
+        free(p);
+    }
+    return OK;
+}
+</code></pre><hr>
+<h1 id="共享栈-双端栈"><a href="#共享栈-双端栈" class="headerlink" title="共享栈(双端栈)"></a>共享栈(双端栈)</h1><blockquote>
+<p>基于顺序栈；两个顺序栈共享一个一维数据空间，两个栈的栈底分别在<br>共享空间的两端，栈顶向数据空间中间延伸；共享栈的数据元素个数半<br>不能超过M,超过就会溢出；应用软件的撤销和恢复操作就是用的共享栈</p>
+</blockquote>
+<h2 id="数据描述-2"><a href="#数据描述-2" class="headerlink" title="数据描述"></a>数据描述</h2><blockquote>
+<p><code>M</code>表示最大存储空间；</p>
+</blockquote>
+<pre><code>#define ERROR -1
+#define OK 1
+#define Elemtype int
+#define M 20
+
+typedef struct
+{
+    Elemtype elem[M];
+    int top1;
+    int top2;
+}SharedStack;
+</code></pre><h2 id="初始化-2"><a href="#初始化-2" class="headerlink" title="初始化"></a>初始化</h2><blockquote>
+<p>即将两个栈置空；<code>top1=-1</code>表示一号栈为空，<code>top2=M</code>表示二<br>号栈为空；(因为<code>top1=-1</code>的时候表示空，所以一号栈压栈的时候要先<br>加一，再压栈;二号栈要先指针减一再压栈)</p>
+</blockquote>
+<pre><code>int Init(SharedStack* S)
+{
+    S-&gt;top1 = -1;
+    S-&gt;top2 = M;
+    return OK;
+}
+</code></pre><h2 id="压栈-2"><a href="#压栈-2" class="headerlink" title="压栈"></a>压栈</h2><pre><code>int Push(SharedStack* S, Elemtype e, int i)
+{
+    if (S-&gt;top1 + 1 == S-&gt;top2)  //判断栈满
+        return ERROR;
+    switch (i)      //i表示压哪个栈
+    {
+    case 1:
+        S-&gt;top1++;
+        S-&gt;elem[S-&gt;top1] = e;
+        break;
+    case 2:
+        S-&gt;top2--;
+        S-&gt;elem[S-&gt;top2] = e;
+        break;
+    default:
+        return ERROR;
+    }
+    return OK;
+}
+</code></pre><h2 id="弹栈-2"><a href="#弹栈-2" class="headerlink" title="弹栈"></a>弹栈</h2><pre><code>int Pop(SharedStack* S, Elemtype* e ,int i)
+{
+    switch (i)
+    {
+    case 1:
+        if (S-&gt;top1 == -1)
+            return ERROR;
+        *e = S-&gt;elem[S-&gt;top1];
+        S-&gt;top1--;
+        break;
+    case 2:
+        if (S-&gt;top2 == M)
+            return ERROR;
+        *e = S-&gt;elem[S-&gt;top2];
+        S-&gt;top2++;
+        break;
+    default:
+        break;
+    }
+    return OK;
+}
+</code></pre><hr>
+<h1 id="动态栈"><a href="#动态栈" class="headerlink" title="动态栈"></a>动态栈</h1><blockquote>
+<p>考虑到共享栈的空间不能改变，某些场合不方便，因此将结构体中的数<br>组换成指针，使用动态分配；当栈满的时候用<code>realloc</code>先扩容，再压<br>栈;基本操作类似，只是换成了对存储空间的动态分配而已</p>
+</blockquote>
+<h1 id="多链栈"><a href="#多链栈" class="headerlink" title="多链栈"></a>多链栈</h1><blockquote>
+<p>适合于需要多个栈解决问题；可基于顺序栈，也可基于链栈，下面讨论<br>基于链栈的情况</p>
+</blockquote>
+<h2 id="数据描述-3"><a href="#数据描述-3" class="headerlink" title="数据描述"></a>数据描述</h2><blockquote>
+<p>每个单链栈都有自己的数据区</p>
+</blockquote>
+<pre><code>#define ERROR -1
+#define OK 1
+#define Elemtype int
+#define M 5
+
+typedef struct node  //每个单链栈节点
+{
+    Elemtype data;
+    struct node* next;
+}ListStackNode;
+
+typedef struct     //储存多链栈的信息
+{ 
+    ListStackNode *top[M];     //存储每个单链栈的头指针的指针数组
+    int stacknum;    //当前单链栈的个数
+};
+</code></pre><h2 id="初始化-3"><a href="#初始化-3" class="headerlink" title="初始化"></a>初始化</h2><pre><code>int Init(MulListStack* S)
+{
+    for (int i = 0; i &lt; M; i++)
+    {
+        S-&gt;top[i] = (ListStackNode*)malloc(sizeof(ListStackNode));
+        if (S-&gt;top[i] == NULL)
+            return ERROR;
+        S-&gt;top[i]-&gt;next = NULL; // 不要忘了将next域置空
+    }
+    S-&gt;stacknum = M;
+    return OK;
+}
+</code></pre><h2 id="压栈-3"><a href="#压栈-3" class="headerlink" title="压栈"></a>压栈</h2><pre><code>int Push(MulListStack* S, Elemtype e, int i)
+{
+    ListStackNode* p;
+    if (i&lt;1 || i&gt;S-&gt;stacknum)  //注意这里的i表示的是压第几个栈，而不是数组下标
+        return ERROR;
+    p = (ListStackNode*)malloc(sizeof(ListStackNode));
+    if (p == NULL)
+        return ERROR;
+    p-&gt;data = e;
+    p-&gt;next = S-&gt;top[i - 1]-&gt;next;
+    S-&gt;top[i - 1]-&gt;next = p;
+    return OK;
+}
+</code></pre><h2 id="弹栈-3"><a href="#弹栈-3" class="headerlink" title="弹栈"></a>弹栈</h2><pre><code>int Pop(MulListStack* S, int i, Elemtype *e)
+{
+    ListStackNode* p;
+    if (i&lt;1 || i&gt;S-&gt;stacknum)
+        return ERROR;
+    p = S-&gt;top[i - 1]-&gt;next;
+    if (p == NULL)    //判断栈空
+        return ERROR;
+    S-&gt;top[i]-&gt;next = p-&gt;next;
+    *e = p-&gt;data;
+    free(p);
+    return OK;
+}
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据结构/">数据结构</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/08/02/栈/" data-title="栈 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/02/ReadMe-数据结构/" title="ReadMe_数据结构">
+  <strong>上一篇：</strong><br/>
+  <span>
+  ReadMe_数据结构</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/29/线性表/"  title="线性表">
+ <strong>下一篇：</strong><br/> 
+ <span>线性表
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/08/02/栈/" data-title="栈" data-url="https://husteryp.github.io/2017/08/02/栈/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#栈"><span class="toc-number">2.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#顺序栈"><span class="toc-number">3.</span> <span class="toc-text">顺序栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述"><span class="toc-number">3.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化"><span class="toc-number">3.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈"><span class="toc-number">3.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈"><span class="toc-number">3.4.</span> <span class="toc-text">弹栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取栈顶元素"><span class="toc-number">3.5.</span> <span class="toc-text">取栈顶元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#判断栈空"><span class="toc-number">3.6.</span> <span class="toc-text">判断栈空</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清空栈"><span class="toc-number">3.7.</span> <span class="toc-text">清空栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#链栈"><span class="toc-number">4.</span> <span class="toc-text">链栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述-1"><span class="toc-number">4.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-1"><span class="toc-number">4.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈-1"><span class="toc-number">4.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈-1"><span class="toc-number">4.4.</span> <span class="toc-text">弹栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取栈顶"><span class="toc-number">4.5.</span> <span class="toc-text">取栈顶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清空栈-1"><span class="toc-number">4.6.</span> <span class="toc-text">清空栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#共享栈-双端栈"><span class="toc-number">5.</span> <span class="toc-text">共享栈(双端栈)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述-2"><span class="toc-number">5.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-2"><span class="toc-number">5.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈-2"><span class="toc-number">5.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈-2"><span class="toc-number">5.4.</span> <span class="toc-text">弹栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#动态栈"><span class="toc-number">6.</span> <span class="toc-text">动态栈</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多链栈"><span class="toc-number">7.</span> <span class="toc-text">多链栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据描述-3"><span class="toc-number">7.1.</span> <span class="toc-text">数据描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化-3"><span class="toc-number">7.2.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#压栈-3"><span class="toc-number">7.3.</span> <span class="toc-text">压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#弹栈-3"><span class="toc-number">7.4.</span> <span class="toc-text">弹栈</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

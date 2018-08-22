@@ -1,0 +1,947 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>线性表 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言线性表的相关操作；链表，顺序表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性表">
+<meta property="og:url" content="https://husteryp.github.io/2017/07/29/线性表/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言线性表的相关操作；链表，顺序表">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-02T05:54:05.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性表">
+<meta name="twitter:description" content="前言线性表的相关操作；链表，顺序表">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/29/线性表/" title="线性表" itemprop="url">线性表</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-29T07:32:58.000Z" itemprop="datePublished"> 发表于 2017-07-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#顺序表"><span class="toc-number">2.</span> <span class="toc-text">顺序表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#单链表"><span class="toc-number">3.</span> <span class="toc-text">单链表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#双向链表"><span class="toc-number">4.</span> <span class="toc-text">双向链表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环链表"><span class="toc-number">5.</span> <span class="toc-text">循环链表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#静态链表"><span class="toc-number">6.</span> <span class="toc-text">静态链表</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>线性表的相关操作；链表，顺序表</p>
+<hr>
+<a id="more"></a>
+<h1 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h1><blockquote>
+<p>适合于频繁的读取数据,数据的随机存取</p>
+</blockquote>
+<pre><code>#define Elemtype int 
+#define LISTINITSIZE 20//线性表的初始长度
+#define LISTINCREAMENT 5//线性表空间不够时一次再分配的长度
+#define ERROR    -1
+#define TRUE 1
+
+typedef struct
+{
+    Elemtype *elem;
+    int length;//线性表的当前长度
+    int listsize;//线性表当前分配空间的大小
+}SeqlList;
+
+//线性表初始化
+/*
+初始化要注意的是：
+空间分配是否成功
+*/
+int Init(SeqlList *L)
+{
+    L-&gt;elem = (Elemtype*)malloc(sizeof(SeqlList)*LISTINITSIZE);//注意要使用malloc那么文件的名称要是.c结尾，而不能是.cpp
+    if (!(L-&gt;elem))//分配空间失败就结束
+        return ERROR;
+    L-&gt;length = 0;//当前长度初始化为0
+    L-&gt;listsize = LISTINITSIZE;//初始空间大小
+    return TRUE;
+}  
+//线性表的在指定位置插入值
+/*
+注意：
+1.判断插入位置是否正确
+2.判断分配的空间长度是否足够
+3.若要重新分配空间，则还要判断是否分配成功
+*/
+int InsertElem(SeqlList*L, int i, Elemtype e)
+{
+    Elemtype *newbase;
+    int newsize;
+    if (i &lt; 1 || i &gt; L-&gt;length + 1)//注意这里的i表示的是第i个位置,L-&gt;length表示的当前长度，最多可以插入其下一个位置
+        return ERROR;
+    if (L-&gt;length &gt;= L-&gt;listsize)//判断如果当前长度是否达到分配最值
+    {
+        newsize = (L-&gt;length + LISTINCREAMENT)*sizeof(Elemtype);
+        newbase = (Elemtype*)realloc(L-&gt;elem, newsize);//realloc对malloc申请的内存进行大小的调整.
+        if (!(newbase))//记住每次分配都要判断一下是否分配成功
+            return ERROR;
+        L-&gt;elem = newbase;
+        L-&gt;listsize += LISTINCREAMENT;//注意当前长度在重新分配空间后肯定还是不变涩，应该是listsize的值变了
+    }
+    for (int j = L-&gt;length; j &gt;= i-1; j--)
+        L-&gt;elem[j + 1] = L-&gt;elem[j];
+    L-&gt;elem[i - 1] = e;
+    L-&gt;length = L-&gt;length + 1;
+    return TRUE;
+}
+//线性表的删除操作
+/*
+注意：
+1.判断删除位置是否正确
+2.根据需要是否返回
+*/
+int DeleteElem(SeqlList*L, int i, Elemtype*e)//i为需要删除的第几个元素，e是用于保存删除元素值，根据需要选择
+{
+    if (i&lt;1 || i&gt;L-&gt;length)
+        return ERROR;
+    *e = L-&gt;elem[i - 1];//注意这里的L-&gt;elem[i-1]本来就是地址，多以e要带上*
+    for (int j = i - 1; j &lt; L-&gt;length; j++)
+        L-&gt;elem[j] = L-&gt;elem[j + 1];
+    L-&gt;length--;//不要忘了当前长度减一
+    return TRUE;
+}
+//线性表的定位操作，查找某一值在线性表中的位序
+int LocateElem(SeqlList L, int e)
+{
+    for (int i = 0; i &lt; L.length; i++)
+    {
+        if (e == L.elem[i])
+            return i + 1;//根据需要返回i还是i+1
+    }
+    return ERROR;
+}
+//取出第i个元素，但是不改变线性表
+/*
+1.判断取的位置是否正确
+*/
+int GetElem(SeqlList L, int i, Elemtype *e)//注意这里通过传入指针的形式来保存该值，方便函数返回值判断是否成功
+{
+    if (i &gt; L.length || i &lt; 1)
+        return ERROR;
+    *e = L.elem[i - 1];
+    return TRUE;
+}
+//求顺序表前驱节点
+/*
+1.第一个元素没有前驱节点，位置正确
+*/
+int PriorElem(SeqlList L, Elemtype e, Elemtype *pre_e)
+{
+    for (int i = L.length - 1; i &gt;= 1; i--)
+    {
+        if (e == L.elem[i])
+        {
+            *pre_e = L.elem[i - 1];
+            return TRUE;
+        }
+    }
+    return ERROR;
+}
+//求线性表后继节点
+/*
+最后一个元素没有后继节点，位置正确
+*/
+int NextElem(SeqlList L, Elemtype e, Elemtype *next_e)
+{
+    for (int i = 0; i &lt; L.length - 1; i++)
+    {
+        if (e == L.elem[i])
+        {
+            *next_e = L.elem[i + 1];
+            return TRUE;
+        }
+    }
+    return ERROR;
+}
+//线性表的打印
+void PrintElem(SeqlList L)
+{
+    printf(&quot;顺序表的存储空间为：%d\n&quot;, L.listsize);
+    printf(&quot;顺序表的长度为：%d\n&quot;, L.length);
+    for (int i = 0; i &lt; L.length; i++)
+        printf(&quot;%d\t&quot;, L.elem[i]);
+    printf(&quot;\n&quot;);
+}
+</code></pre><h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><blockquote>
+<p>需要频繁的插入和删除数据时，应该采用链表的形式存储数据;</p>
+<p>如果对数据的读取更频繁时，应该采用顺序存储结构</p>
+<p>为了保存头结点，通常都会创建另外一个变量来移动 </p>
+</blockquote>
+<pre><code>#define ElemType int
+#define OK 1;
+#define ERROR 0;
+
+typedef struct node
+{
+    ElemType data;
+    struct node *next;
+}LinkList;
+
+//初始化
+LinkList* Init()
+{
+    LinkList *head = (LinkList*)malloc(sizeof(LinkList));
+    head-&gt;next = NULL;
+    return head;
+}
+
+//创建长度为n的单链表，头插法插入元素
+LinkList* InsertElemHead(int n)
+{
+    LinkList *p, *head;
+    head = (LinkList*)malloc(sizeof(LinkList));
+    head-&gt;next = NULL;
+    for (int i = 0; i &lt; n; i++)
+    {
+        p = (LinkList*)malloc(sizeof(LinkList));
+        scanf(&quot;%d&quot;, &amp;p-&gt;data);
+        p-&gt;next = head-&gt;next;
+        head-&gt;next = p;
+    }
+    return head;
+}
+
+//创建长度为n的单链表，采用尾插法
+LinkList* InsertElemTail(int n)
+{
+    LinkList *p, *head, *q;
+    head = (LinkList*)malloc(sizeof(LinkList)); 
+    head-&gt;next = NULL;
+    q = head;
+    for (int i = 0; i &lt; n; i++)
+    {
+        p = (LinkList*)malloc(sizeof(LinkList));
+        scanf(&quot;%d&quot;, &amp;p-&gt;data);
+        q-&gt;next = p;
+        q = p;
+    }
+}
+
+//单链表求表长
+int ListLength(LinkList*head)
+{
+    int count = 0;
+    LinkList* p = head-&gt;next;
+    while (p != NULL)
+    {
+        count++;
+        p = p-&gt;next;
+    }
+    return count;
+}
+
+//单链表的取元素,取第i个节点数据
+int GetElem(LinkList*head,int i, ElemType *e)
+{
+    LinkList* p = head;
+    int count = 0;
+    while (p != NULL&amp;&amp;count &lt; i)
+    {
+        p = p-&gt;next;
+        count++;
+    }
+    if (p == NULL || count&gt;i)
+    {
+        e = NULL;
+        return ERROR;
+    }
+    e = p-&gt;data;
+    return OK;
+}
+
+//单链表的插入操作
+int InsertElem(LinkList*head, ElemType e,int i)
+{
+    if (i &lt; 1)
+        return ERROR;
+    LinkList *p = head;
+    int count = 0; //这里要从0开始，为了防止插入的位置是第一个
+    while (p != NULL&amp;&amp;count &lt; i-1)
+    {
+        count++;
+        p = p-&gt;next;
+    }
+    if (p == NULL)
+        return ERROR;
+    LinkList *q = (LinkList*)malloc(sizeof(LinkList));
+    q-&gt;data = e;
+    q-&gt;next = p-&gt;next;
+    p-&gt;next = q;
+    return OK;
+}
+
+//单链表的删除操作
+int DeleteElem(LinkList*head, int i,ElemType *e)
+{
+    if (i &lt; 1)
+        return ERROR;
+    LinkList* p = head;
+    int count = 0;
+    while (p-&gt;next != NULL&amp;&amp;count &lt; i-1)
+    {
+        p = p-&gt;next;
+        count++;
+    }
+    if (p-&gt;next == NULL)
+        return ERROR;
+    LinkList*q = p-&gt;next;
+    p-&gt;next = q-&gt;next;
+    *e = q-&gt;data;
+    free(q);
+    return OK;
+}
+
+//单链表的定位操作
+int LocateElem(LinkList*head, ElemType e)
+{
+    LinkList* p = head;
+    int count = 0;
+    while (p != NULL&amp;&amp;p-&gt;data != e)
+    {
+        p = p-&gt;next;
+        count++;
+    }
+    if (p == NULL)
+        return ERROR;
+    return count;
+}
+
+//单链表的删除表操作
+int DeleteList(LinkList* head)
+{
+    LinkList *p = head-&gt;next;
+    LinkList *q = head-&gt;next;
+    while (p != NULL)
+    {
+        p = q-&gt;next;
+        free(q);
+        q = p;
+    }
+    head-&gt;next = NULL;
+    head = NULL;
+    return OK;
+}
+
+//单链表的遍历
+void PrintList(LinkList* head)
+{
+    LinkList *p;
+    if (head-&gt;next == NULL)
+        printf(&quot;NULL List&quot;);
+    p = head-&gt;next;
+    while (p != NULL)
+    {
+        printf(&quot;%d\t&quot;, p-&gt;data);
+        p = p-&gt;next;
+    }
+}
+</code></pre><h1 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h1><blockquote>
+<p>双向链表的操作和单链表的差不多，需要注意的是处理前驱节点</p>
+</blockquote>
+<pre><code>#define ElemType int
+#define OK 1
+#define ERROR -1
+
+typedef struct node
+{
+    ElemType data;
+    struct node * next;
+    struct node * before;
+}DulLinkList;
+
+//双向链表的初始化
+DulLinkList *InitList()
+{
+    DulLinkList* head = (DulLinkList*)malloc(sizeof(DulLinkList));
+    head-&gt;next = NULL;
+    head-&gt;before = NULL;
+    return head;
+}
+
+//创建长度为n的双向链表
+DulLinkList * CreateDulList(int n)
+{
+    DulLinkList *p, *q;
+    DulLinkList *head = (DulLinkList*)malloc(sizeof(DulLinkList));
+    head-&gt;before = NULL;
+    q = head;
+    for (int i = 0; i &lt; n; i++)
+    {
+        p = (DulLinkList*)malloc(sizeof(DulLinkList));
+        scanf(&quot;%d&quot;, &amp;p-&gt;data);
+        q-&gt;next = p;
+        p-&gt;before = q;
+        q = p;
+    }
+    q-&gt;next = NULL;
+    return head;
+}
+
+//双向链表的插入数据
+int InsertElem(DulLinkList*head, ElemType e ,int i)
+{
+    DulLinkList *p, *q;
+    p = head;
+    int count = 0;
+    if (i &lt; 1)
+        return ERROR;
+    while (p != NULL&amp;&amp;count &lt; i - 1)
+    {
+        p = p-&gt;next;
+        count++;
+    }
+    if (p == NULL)
+        return ERROR;
+    q = (DulLinkList*)malloc(sizeof(DulLinkList));
+    q-&gt;data = e;
+    q-&gt;next = p-&gt;next;
+    if (p-&gt;next != NULL)
+        p-&gt;next-&gt;before = q;
+    p-&gt;next = q;
+    q-&gt;before = p;
+    return OK;
+}
+
+//双链表的删除操作 
+int DeleteElem(DulLinkList* head, int i, ElemType *e)
+{
+    if (i &lt; 1)
+        return ERROR;
+    DulLinkList *p = head;
+    int count = 0;
+    while (p != NULL&amp;&amp;count &lt; i - 1)
+    {
+        p = p-&gt;next;
+        count++;
+    }
+    if (p-&gt;next == NULL)
+        return ERROR;
+    DulLinkList *q = p-&gt;next;
+    *e = q-&gt;data;
+    p-&gt;next = q-&gt;next;
+    if (q-&gt;next != NULL)
+        q-&gt;next-&gt;before = p;
+    free(q);
+    return OK;
+}
+</code></pre><h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><ul>
+<li>对于循环链表，其实也分为单向的和双向的；同样也需要保存头结点，其与单链表和双链表的操作的区别是判断尾节点时，将判断为<code>NULL</code>改为判断是否是头结点；其余操作大致相同</li>
+</ul>
+<h1 id="静态链表"><a href="#静态链表" class="headerlink" title="静态链表"></a>静态链表</h1><blockquote>
+<p>静态链表的指针域是用数组下标来确定的，0表示空闲可存数据，-1表示后继为<code>NULL</code>，可规定<code>1</code>为开始头结点</p>
+</blockquote>
+<pre><code>typedef struct
+{
+    ElemType data;
+    int next;
+}SNode;
+
+typedef struct
+{
+    SNodeSL[N];
+    int listsize; //该空间最多可存储的元素个数
+    int length;  //当前静态链表中数据元素的个数
+}SLinkList;
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/数据结构/">数据结构</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/07/29/线性表/" data-title="线性表 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/02/栈/" title="栈">
+  <strong>上一篇：</strong><br/>
+  <span>
+  栈</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/27/C指针与数组/"  title="C语言指针与数组">
+ <strong>下一篇：</strong><br/> 
+ <span>C语言指针与数组
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/07/29/线性表/" data-title="线性表" data-url="https://husteryp.github.io/2017/07/29/线性表/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#顺序表"><span class="toc-number">2.</span> <span class="toc-text">顺序表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#单链表"><span class="toc-number">3.</span> <span class="toc-text">单链表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#双向链表"><span class="toc-number">4.</span> <span class="toc-text">双向链表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#循环链表"><span class="toc-number">5.</span> <span class="toc-text">循环链表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#静态链表"><span class="toc-number">6.</span> <span class="toc-text">静态链表</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

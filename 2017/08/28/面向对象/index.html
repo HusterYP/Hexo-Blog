@@ -1,0 +1,1107 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>面向对象 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言Java面向对象基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象">
+<meta property="og:url" content="https://husteryp.github.io/2017/08/28/面向对象/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言Java面向对象基础">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-31T09:06:43.022Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向对象">
+<meta name="twitter:description" content="前言Java面向对象基础">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/28/面向对象/" title="面向对象" itemprop="url">面向对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-28T05:39:35.000Z" itemprop="datePublished"> 发表于 2017-08-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向过程"><span class="toc-number">2.</span> <span class="toc-text">面向过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向对象"><span class="toc-number">3.</span> <span class="toc-text">面向对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特点："><span class="toc-number">3.0.1.</span> <span class="toc-text">特点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类和对象的关系"><span class="toc-number">3.1.</span> <span class="toc-text">类和对象的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#匿名对象"><span class="toc-number">3.2.</span> <span class="toc-text">匿名对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#封装"><span class="toc-number">3.3.</span> <span class="toc-text">封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点："><span class="toc-number">3.3.1.</span> <span class="toc-text">优点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数"><span class="toc-number">3.4.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#静态static："><span class="toc-number">3.5.</span> <span class="toc-text">静态static：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成员变量和静态成员变量的区别"><span class="toc-number">3.6.</span> <span class="toc-text">成员变量和静态成员变量的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#静态代码块"><span class="toc-number">3.7.</span> <span class="toc-text">静态代码块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个对象的流程"><span class="toc-number">3.8.</span> <span class="toc-text">创建一个对象的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式"><span class="toc-number">3.9.</span> <span class="toc-text">设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式"><span class="toc-number">3.9.1.</span> <span class="toc-text">单例模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-number">3.10.</span> <span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#覆盖注："><span class="toc-number">3.10.1.</span> <span class="toc-text">覆盖注：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象类"><span class="toc-number">3.11.</span> <span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口"><span class="toc-number">3.12.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态"><span class="toc-number">3.13.</span> <span class="toc-text">多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内部类"><span class="toc-number">3.14.</span> <span class="toc-text">内部类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包"><span class="toc-number">3.15.</span> <span class="toc-text">包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">3.16.</span> <span class="toc-text">注</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Java面向对象基础</p>
+<hr>
+<a id="more"></a>
+<h1 id="面向过程"><a href="#面向过程" class="headerlink" title="面向过程"></a>面向过程</h1><blockquote>
+<p>注重过程和行为：需要哪些过程才能完成任务；但是当解决大型需求时会超级复杂其实一般而言，对于较简单的问题一般用面向过程就可以了</p>
+</blockquote>
+<h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><blockquote>
+<p>基于面向过程，将过程进行对象的封装。只要解决问题先找对象就可以了</p>
+</blockquote>
+<h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
+<li>面向对象更符合思考习惯</li>
+<li>从过程的执行者转换成了对象的指挥者</li>
+<li>将复杂的问题简单化</li>
+</ul>
+<blockquote>
+<p>（对于面试时被问及面向对象的理解，答曰：其实面试官您就是在面向对象，一个项目你自己做，没问题，只不过周期长一点，但是如果你找想我这样的具备专业素质的人去做的话就大大提高了开发周期，你给我说你的需求，我调用我的技能帮你实现你的需求，这就是面向对象；其实将面向对象的思想能够与生活结合起来的往往都是指挥者，同时结合生活实例来回答也更加分）</p>
+<p>面向对象要基于问题领域，过程需要哪些对象，先提炼对象，从对象的角度出发；但是方法应该封装在哪个对象中，就要看依赖方法依赖了哪个对象那个来完成，如：</p>
+</blockquote>
+<pre><code>人开门
+class 人
+{
+    开门(门);
+}
+class 门
+{
+    开();//用的门的门轴，弹簧等
+}
+</code></pre><blockquote>
+<p>在这个问题中，开门这个动作是由人实行的，所以人应该有一个开门的方法，参数为开哪个门。但是对于开门这个动作而言，是依赖于门的门轴弹簧完成的，所以对于门而言应该有一个开的功能</p>
+</blockquote>
+<h2 id="类和对象的关系"><a href="#类和对象的关系" class="headerlink" title="类和对象的关系"></a>类和对象的关系</h2><ul>
+<li>强类型：所有的数据都有他对应的数据类型</li>
+</ul>
+<h2 id="匿名对象"><a href="#匿名对象" class="headerlink" title="匿名对象"></a>匿名对象</h2><ul>
+<li><p>如： <code>new Car();//也就是没有名字咯</code></p>
+</li>
+<li><p>匿名对象可以作为实际参数传递;如果对象方法只进行一次调用，可以简化为匿名对象的形式，如：</p>
+<p>  Car c = new Car();</p>
+<p>  c.run();</p>
+<p>  可以简化为：new Car().run();</p>
+</li>
+</ul>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><blockquote>
+<p>核心在于隐藏核心细节，对外提供公共的访问方式（接口）(<code>setXXX</code>，<code>getXXX</code>)</p>
+</blockquote>
+<ul>
+<li>实现封装的关键在于绝对不能让类中的方法直接访问其他类的实例域(即类对象的数据)，程序仅通过对象的方法与对象的数据进行交互</li>
+<li>如果不经过方法调用就可以改变对象状态，只能说明封装性遭到了破坏</li>
+</ul>
+<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul>
+<li><p>提高安全性，不允许直接访问细节，通过公共的接口实现访问，可以实现可控</p>
+</li>
+<li><p>提高了易用性</p>
+</li>
+</ul>
+<ul>
+<li>提高了复用性</li>
+</ul>
+<ul>
+<li>封装的出现隔离了变化</li>
+</ul>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><ul>
+<li>如下代码</li>
+</ul>
+<hr>
+<pre><code>class Person
+{
+    void Person()//注意这里是可以编译通过的，视为一般函数，只是不符合书写规范
+    {}
+}
+</code></pre><ul>
+<li>构造函数也可以用private修饰，这时就不能创建对应参数的对象（因为构造函数还可以重载）</li>
+</ul>
+<ul>
+<li>构造函数的private修饰可以阻止创建对象；构造函数私有化，用于给内部对象使用构造函数私有化，只在本类中有效；</li>
+</ul>
+<ul>
+<li>构造函数只能被构造函数调用，一般不能直接被普通函数调用</li>
+</ul>
+<p>-</p>
+<pre><code>class Person
+{
+    private String name;
+    private int age;
+    private Person(String n)//这样也可以，但是对于Person p = new Person;就要报错
+    {
+        name =  n;
+    }
+    public Person(String n,int a)
+    {
+//        name = n;//由于上面已经有一个只初始化name的了，所以这里还可以
+        this(n);//注意这里的私由构造函数怎么调用的，而且this语句只能放在第一行
+        age = a;
+    }
+}
+</code></pre><h2 id="静态static："><a href="#静态static：" class="headerlink" title="静态static："></a>静态static：</h2><ul>
+<li>静态成员优先于对象存在，随着类的加载而加载</li>
+<li>静态方法中不能出现this或者super关键字</li>
+<li>如果函数没有访问过对象中的属性数据，那么该函数就可以为静态的</li>
+</ul>
+<h2 id="成员变量和静态成员变量的区别"><a href="#成员变量和静态成员变量的区别" class="headerlink" title="成员变量和静态成员变量的区别"></a>成员变量和静态成员变量的区别</h2><blockquote>
+<p>名称上</p>
+</blockquote>
+<ul>
+<li>实例变量和类变量</li>
+</ul>
+<blockquote>
+<p>内存存储上的区别</p>
+</blockquote>
+<ul>
+<li>成员变量存储到堆内存的对象</li>
+<li>静态变量存储到方法区的静态区中</li>
+</ul>
+<blockquote>
+<p>生命周期不同</p>
+</blockquote>
+<h2 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h2><blockquote>
+<p>随着类的加载而执行，而且只执行一次</p>
+<p>作用：给类初始化（对于有些不需要对象的类）</p>
+</blockquote>
+<pre><code>static 
+{
+    ...
+}
+如果在一个类中没有加static的代码块，那么每个对象加载时都会执行一遍，此时该代码块叫构造代码块
+常用于对一个类对象的共性初始化
+{
+    ...
+}
+</code></pre><h2 id="创建一个对象的流程"><a href="#创建一个对象的流程" class="headerlink" title="创建一个对象的流程"></a>创建一个对象的流程</h2><ul>
+<li>加载指定的字节码文件进内存(类)</li>
+<li>通过new在堆内存中开辟空间，分配首地址值</li>
+<li>对对象中属性进行默认初始化</li>
+<li>调用与之对应的构造函数，构造函数压栈</li>
+<li>构造函数中执行隐式的语句super()访问父类中的构造函数</li>
+<li>对属性进行显示初始化</li>
+<li>调用类中的构造代码块</li>
+<li>执行构造函数中的自定义初始化代码</li>
+<li>初始化完毕，将地址赋值给指定的引用</li>
+</ul>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><ul>
+<li>解决某一种问题的一种思想</li>
+<li>一共<code>23</code>种模式，只要是面向对象的，都可以用</li>
+</ul>
+<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><blockquote>
+<p>解决的问题</p>
+</blockquote>
+<ul>
+<li>保证某一个类在内存中的唯一性</li>
+</ul>
+<blockquote>
+<p>应用场景</p>
+</blockquote>
+<ul>
+<li>多个程序都在操作同一个配置文件时，需要程序A的操作后的结果，程序B要知道并继续基于A操作后的结果进行操作；此时要求程序A和程序B的操作的对象是同一个</li>
+</ul>
+<blockquote>
+<p>如何保证这个类只产生一个对象</p>
+</blockquote>
+<ul>
+<li>将构造函数私有化，在本类中提供一个对象，定义一个方法返回该对象；因为构造函数无法在类外new，所以这里的构造函数和类中的对象都要为<code>static</code></li>
+<li>注意之所以提供一个静态方法来访问静态对象，是为了可控，可以在方法中去判断是否符合条件</li>
+</ul>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ul>
+<li><code>Java</code>单继承</li>
+<li>多继承：出现调用的不确定性(多个父类函数出现同名或者属性)</li>
+<li>在学习一个继承体系时，先看顶层，了解该体系中具备的基本功能，使用时，找最下层(功能最全)</li>
+<li>当事物之间存在所属关系时<code>(is a)</code>，可以通过继承来体现</li>
+<li>继承后，父类会先于子类加载进内存</li>
+<li>当子父类中出现相同的成员变量的时候，可以使用<code>super.XX</code>来访问父类的成员变量</li>
+<li><code>super</code>并非像<code>this</code>一样代表的对象，<code>super</code>要加<code>.</code>使用才有意义，证明是，打印<code>this</code>可以，但是打印<code>supe</code>r却会报错</li>
+<li>当子类和父类中出现相同的方法时，运行子类的方法，这叫覆盖(<code>override</code>,也译作复写，重写，都是一个意思)(覆盖：返回值类型,函数名，参数列表都相同)(重载：与返回值无关，参数不同)</li>
+<li><p>覆盖的注意事项(参见下面<code>覆盖注</code>)</p>
+<ol>
+<li>子类方法要覆盖父类方法，必须要保证权限大于等于父类权限,如果父类的方法为<code>private</code>，那么由于子类根本无法访问父类的方法，所以此时不叫作覆盖</li>
+<li>静态方法只能覆盖静态方法，或者被静态覆盖</li>
+<li>如果只是子类和父类中的方法名和参数相同，但是返回值不同，那么会编译错误，会出现调用时的二义性</li>
+<li>成员变量之间不存在覆盖的说法，覆盖存在于函数之间</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>发现创建子类对象时，父类中的空参数构造函数也运行了，是因为子类中的构造函数第一行都有一个隐式的<code>super()</code>;语句</li>
+<li>但是为什么子类对象的初始化都要访问父类中的构造函数呢</li>
+</ul>
+<blockquote>
+<p>因为子类继承了父类中的内容，所以创建对象必须要先看父类是如何对内容进行初始化的    </p>
+</blockquote>
+<ul>
+<li>当父类中没有空参数的构造函数时，需要在子类构造函数中显示的调用父类带参构造函数，否则编译不通过</li>
+<li><code>this</code>和<code>super</code>用于调用构造函数时，可以同时存在吗</li>
+</ul>
+<blockquote>
+<p>不可以，因为他们都要放在第一行</p>
+</blockquote>
+<ul>
+<li><code>super</code>调用构造函数为什么要放在第一行</li>
+</ul>
+<blockquote>
+<p>因为要先初始化父类</p>
+</blockquote>
+<ul>
+<li><code>final</code>关键字<ol>
+<li><code>final</code>修饰类 : 表示类为最终类，不可继承</li>
+<li><code>final</code>修饰方法: 表示方法为最终方法,不可重写(联系上文)</li>
+<li><code>final</code>修饰成员变量：相当于常量，实际上在编译为字节码后，就是直接以常量代替的；上面单例模式中的类成员对象可以设计为<code>final</code>的，更安全</li>
+</ol>
+</li>
+</ul>
+<h3 id="覆盖注："><a href="#覆盖注：" class="headerlink" title="覆盖注："></a>覆盖注：</h3><ul>
+<li>在<code>Java核心编程</code>介绍继承的时候，有这样一句话: <code>允许子类将覆盖方法的返回类型定义为原返回类型的子类型</code></li>
+<li>先上代码</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    public Object show()
+    {
+        return null;
+    }
+}
+class Child extends Father
+{
+    public String show()
+    {
+        return null;
+    }
+}
+</code></pre><ul>
+<li>也就是说，平时常说的覆盖要方法返回值，形参，函数名等一模一样其实是不太准确的，如上面的代码，也叫覆盖，但是返回值不同(平时所说只是为了更好的强调覆盖的同性)</li>
+<li>但是要注意的是，这种特殊情况下的覆盖是要在子类覆盖方法返回值是父类方法的子类，不能颠倒</li>
+</ul>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><ul>
+<li>描述一个事物却没有足够的信息，就将其抽象为抽象事物</li>
+<li><code>abstract</code>修饰方法表示抽象方法，一个类存在抽象方法时，该类也要用<code>abstract</code>修饰为抽象类(抽象方法一定定义在抽象类中)</li>
+<li>抽象类无法实例化，只有子类覆盖父类方法才能实例化，如果没有覆盖完抽象方法，那么子类也是抽象类</li>
+<li>抽象类中有构造函数吗？<blockquote>
+<p>有；抽象类的构造函数虽然不能给抽象对象实例化(因为其不能实例化对象)，但是抽象类有子类，他的构造函数可以用于子类的实例化</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>抽象类可以不定义抽象方法吗？</li>
+</ul>
+<blockquote>
+<p>可以；这时仅仅只是让该类不能实例化对象</p>
+</blockquote>
+<ul>
+<li><code>abstract</code>和那些关键字不能共存？</li>
+</ul>
+<blockquote>
+<p>   <code>final</code>(<code>final</code>为最终方法)<br>   <code>private</code>(私有后就不能覆盖父类方法了)<br>   <code>static</code>(静态不需要对象，只用类名就可以调用静态方法，但是没有意义)</p>
+</blockquote>
+<ul>
+<li>抽象类向接口的转换</li>
+</ul>
+<blockquote>
+<p>如果抽象类中的方法都是抽象的，那么可以把抽象类用另一种方式来表示，接口(初期可以理解为接口是特殊的抽象类)</p>
+</blockquote>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><ul>
+<li><code>interface</code>定义接口，编译后还是一个<code>.class</code>文件</li>
+</ul>
+<ol>
+<li>接口中常见的成员有两种：全局变量和抽象方法；而且都有固定的修饰符(共性：成员都是public修饰的)</li>
+</ol>
+<p>-</p>
+<pre><code>interface Inter
+{
+    public static final int NUM = 1;//接口中public static final属性是默认的，所以可以不写，直接写为int NUM即可，会自动补齐
+    public abstract void show();//public abstract也是默认的，也可不写
+}    
+</code></pre><ul>
+<li>接口不可实例化，需要覆盖接口中的所有抽象方法的子类才能实例化，否则该子类还是一个抽象类</li>
+<li>实现多继承，解决原来多继承机制调用不确定性的弊端</li>
+</ul>
+<p>-</p>
+<pre><code>interface InterA
+{
+    void show();
+}
+interface InterB
+{
+//要注意的是，如果InterB中的接口为int show()的话，下面的Inter类就不知该如何重写了，此时会报错
+//但是实际上这样安排是没有任何意义的咯
+    void show(); 
+}
+class Inter implements InterA,InterB
+{
+    public void show()//本来如果A,B是类的话，会引起调用的不确定性，但是这里接口就不存在了
+    {}
+}
+</code></pre><ul>
+<li>继承是为了获取体系的基本功能，想要扩展功能可以通过实现接口来完成</li>
+<li>接口之间可以多继承</li>
+</ul>
+<p>-</p>
+<pre><code>interface Inter1 extends Inter2,Inter3  //这里的Inter2,Inter3都是接口，在接口这里可以多继承
+{}
+</code></pre><ul>
+<li>承接上文，对于没有抽象方法抽象类额用途<br>  当一个类只是需要一个接口中的部分方法时，如果直接继承接口，那么必须要空实现其他抽象方法才行(不然该子类还是一个抽象类)<br>  但是这样的话，代码就会很冗余，此时可以定义一个中间实现类，继承于该接口，然后所需子类继承于该类即可;但是由于该中间类<br>  的方法都是空实现，即使实例化对象也没有意义，所以此时可以将该类定义为抽象类，只是为了避免实例化对象</li>
+</ul>
+<p>-</p>
+<pre><code>interface Inter1
+{
+    void show1();
+    void show2();
+    void show3();
+}
+abstract class ClassInter implements Inter1  //中间抽象类，但是没有抽象方法，只是为了避免实例化对象
+//注意虽然构造函数私有化也能避免创建对象，但是由于该类要被继承，子类还需要该类的构造函数来初始化，
+//所以该类不能将构造函数私有化
+{
+    void show1(){}
+    void show2(){}
+    void show3(){}
+}
+public class Demo extends ClassInter
+{
+    public void show1()  //比如该类只需要接口中的show1方法
+    {
+        ...
+    }
+}
+</code></pre><ul>
+<li>接口的思想<ol>
+<li>扩展功能</li>
+<li>接口就是暴露出来的规则</li>
+<li>接口的出现降低了耦合性；解耦(看到解耦就要想到接口)</li>
+</ol>
+</li>
+<li><p>什么时候用接口和继承？</p>
+<ol>
+<li>一般来说，先看二者的关系，如果二者有明确的子父类关系，那么就定义为抽象类；如果并非基本属性，只是扩展功能，就定义为接口</li>
+<li><p>举例</p>
+<blockquote>
+<p>犬具备基本功能：吃，叫；这是基本属性，定义为类<br>缉毒犬除了具备犬的基本属性，还要有缉毒功能，但是并非所有犬都要缉毒，所以这是一个扩展功能，定义为接口</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>抽象类和接口的区别<ol>
+<li>类和类之间是继承关系，is a<br> 类和接口之间是实现关系，like a</li>
+<li>抽象类中可以定义抽象方法和非抽象方法，子类可以直接使用或者覆盖使用，但是接口中必须都是抽象方法，<br> 必须实现才能使用</li>
+</ol>
+</li>
+</ol>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><ul>
+<li>多态在程序中的体现，父类的引用或者接口的引用指向了子类对象实例</li>
+</ul>
+<p>-</p>
+<pre><code>class Dog extends Animal 
+{}
+Dog dog = new Dog();
+Animal animal = new Dog();  //(向上转型)多态，这里的animal只能调用Animal中定义了的方法，而不能调用子类实例的特有方法
+</code></pre><ul>
+<li><p>多态的好处与弊端</p>
+<blockquote>
+<p>提高代码的扩展性，但是不能使用子类的特有方法</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>向上转型好处<blockquote>
+<p>隐藏了子类型(因为子类的特有方法无法访问，这同时也是弊端)，提高扩展性</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>如果不需要子类型，或者使用父类即可完成，那么就可以先上转型</li>
+</ul>
+<ul>
+<li>如果想要使用子类的特有功能呢？</li>
+</ul>
+<pre><code>&gt; 使用向下转型    
+</code></pre><ul>
+<li>转型过程中自始至终只有子类对象在做着类型的变化</li>
+</ul>
+<ul>
+<li>多态中成员的调用(向上转型)</li>
+</ul>
+<pre><code>1. 成员变量
+
+&gt; 当子父类中出先同名成员变量时，多态调用时，只看调用该成员变量的引用所属类中的成员变量
+    简单的说就是无论编译或者运行，都看等号左边即可
+</code></pre><p>-</p>
+<pre><code>class Fu
+{
+    int num = 4;
+}
+class Zi extends Fu
+{
+    int num =6;
+}
+
+public class Demo
+{
+    public static void main(String[]args)
+    {
+        Fu fu = new Zi();
+        System.out.println(fu.num);  //输出4，成员变量的多态调用只看左边即可，即引用数据类型
+    }
+}
+
+2. 成员函数
+    &gt; 向上转型的多态类似于一个过滤器，子类的方法被父类的方法过滤，但是方法的本质还是没有变，调用的内容仍然是子类的方法内容(注意是对于成员方法)
+    出现一模一样的函数时。多态调用，编译时，看的是引用变量所属类中的方法，运行时，看的是对象所属类中的方法
+    简单的说，编译看左边，运行看右边(编译只是看语法错误，检查向上转型后父类能否调用该方法)
+</code></pre><p>-</p>
+<pre><code>class Fu
+{
+    void show()  //如果父类show方法注释掉，会出现编译错误，因为编译时还没有对象(对象运行时产生)，去检查父类中无show方法，报错
+    {
+        System.out.println(&quot;Fu show&quot;);
+    }
+}
+class Zi extends Fu 
+{
+    void show() //若注释子类show，输出为Fu show，子类继承了父类的方法，未注释时相当于有两个show方法(此时相当于是子类函数中覆盖)
+    {
+        System.out.println(&quot;Zi show&quot;);
+    }
+}
+
+public class Demo
+{
+    public static void main(String[]args)
+    {
+        Fu fu = new Zi();
+        fu.show(); //输出：Zi show
+    }
+}
+
+3. 静态函数
+    &gt; 由于静态方法直接绑定到类，与对象无关(成员方法是动态绑定到当前对象的，但是静态方法与对象无关)
+    出现一模一样的静态函数时，多态调用，编译和运行时看引用变量所属的类中的方法
+    简单的说，编译运行看左边(与对象无关)
+    其实在实际运用中，真正调用静态方法时不需要对象，直接类名调用，上述情况多用于面试咯
+</code></pre><p>-</p>
+<pre><code>class Fu
+{
+    static void show()
+    {
+        System.out.println(&quot;Fu show&quot;);
+    }
+}
+class Zi extends Fu
+{
+    static void show() //静态方法覆盖
+    {
+        System.out.println(&quot;Zi show&quot;);
+    }
+}
+
+public class Demo
+{
+    public static void main(String[]args)
+    {
+        Fu fu = new Zi();
+        fu.show();  //Fu show
+    }
+}
+</code></pre><h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><ul>
+<li>外部类要访问内部类，需要创建内部类的对象 </li>
+</ul>
+<p>-</p>
+<pre><code>class Outer
+{
+    int num1 = 3;
+    void show()
+    {
+        Inner inner = new Inner();
+        System.out.println(inner.num);
+    }
+    class Inner
+    {
+        int num = 2;
+        void show()
+        {
+            System.out.println(num1); //内部类可以直接访问外部类成员
+        }
+    }
+}
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        Outer.Inner inner = new Outer().new Inner();  //注意以后看到这种 类.类的形式就是内部类
+        System.out.println(inner.show());
+    }
+}
+</code></pre><ul>
+<li>内部类可以被成员变量符修饰(实际上就相当于一个成员变量),<code>public</code>,<code>private</code>,<code>static</code></li>
+</ul>
+<ol>
+<li>在非静态的内部类中只允许定义静态的常量(即<code>static</code>修饰的同时还要<code>final</code>修饰)，不允许定义其他静态成员变量(注意在其他正常类中可以)</li>
+</ol>
+<p>-</p>
+<pre><code>class Outer
+{
+    static int num1 = 3; //非内部类，可以
+    static void show() //可以
+    {
+        Inner inner = new Inner();
+        System.out.println(inner.num);
+    }
+    class Inner
+    {
+    //    static int num = 2;  //内部类中，不行
+        static final int num = 2; //可以
+        static void show() //非静态内部类中除静态常量外不能再定义其他静态成员(除非将内部类静态化)
+        {}
+    }
+}
+</code></pre><ul>
+<li>局部内部类<blockquote>
+<p>局部内部类只能访问被<code>final</code>修饰的局部变量,因为生命周期不同</p>
+</blockquote>
+</li>
+</ul>
+<p>-</p>
+<pre><code>class Outer
+{
+    Object obj;
+    public void Show()
+    {
+        int x = 2;
+        class Inner
+        {
+            public void Fun()
+            {
+                Inner inner = new Inner();
+                obj = inner(); //之所以说二者的生命周期不同，是因为像这里的赋值后，在函数外面访问该方法的话，由于x为局部变量
+                //已经无法访问了，而如果将x用final修饰为常量，那么实际上在编译的时候下面x的值就已经被替换为了2，所以即使在外面访问也可
+                System.out.println(&quot;Inner +&quot;x); //这里不能访问x，除非x为 : final int x = 2;
+            }
+        }
+    }
+}
+</code></pre><h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><ul>
+<li><code>package</code>，包名全部小写</li>
+<li>包A要访问包B中的类，则包<code>B</code>中的类必须要定义为<code>public</code>才行，而且如果要访问该类中的成员方法，<br>那么该方法也应该定义为<code>public</code></li>
+<li>包与包之间，只有两种权限可以使用，<code>public</code>和<code>protected</code>,而且<code>protected</code>只有子类能够使用</li>
+</ul>
+<hr>
+<pre><code>            public             protected        default            private
+同一个类中      ok                ok                ok                ok
+同一个包中      ok                ok                ok    
+子类             ok                ok
+不同的包中      ok
+</code></pre><hr>
+<ul>
+<li>关于import导入包中类<blockquote>
+<p>最好使用<code>import pack.XX</code>,要使用哪个类，就具体的写出来，不要使用<code>import pack.*</code>，全部导入，因为这样会影响效率(在编译时，会去查找所有导入的包中的符合类，但是若具体导入的话，查找更快)</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>jar</li>
+</ul>
+<pre><code>&gt; `Java`的压缩包
+&gt; 
+&gt; `jar.exe`工具可以打包`jar`
+</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><ul>
+<li>注意在继承中，由于必有一个父类<code>Object</code>，所以对于子类中的一些方法，需要覆盖父类中的方法，不要去自定义方法名；如：父类<code>Object</code>中有一个<code>equals</code>方法用于判断是否相等，此时若子类中有一个需求是判断满足特定条件两个子类对象就相等，那么此时就应该复写<code>equals</code>方法，而不是去自定义<code>compare</code>方法(这样相当于子类就有两个比较方法)</li>
+</ul>
+<p>-</p>
+<pre><code>class Person
+{
+    private int age;
+    public boolean equals(Object obj) //这里必须要传Object(完全相同才叫覆盖)，否则叫重载
+    {
+        if (!(obj instanceof Person)) //注意这里必须要判断，是否能够向下转型
+            throw ClassCastException(obj.getClass().getName()+&quot;类型转换错误&quot;);
+        Person p = (Person)obj;
+        return this.age == p.age;
+    }
+}
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/08/28/面向对象/" data-title="面向对象 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/08/30/多线程/" title="多线程">
+  <strong>上一篇：</strong><br/>
+  <span>
+  多线程</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/08/04/串/"  title="串">
+ <strong>下一篇：</strong><br/> 
+ <span>串
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/08/28/面向对象/" data-title="面向对象" data-url="https://husteryp.github.io/2017/08/28/面向对象/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向过程"><span class="toc-number">2.</span> <span class="toc-text">面向过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面向对象"><span class="toc-number">3.</span> <span class="toc-text">面向对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特点："><span class="toc-number">3.0.1.</span> <span class="toc-text">特点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类和对象的关系"><span class="toc-number">3.1.</span> <span class="toc-text">类和对象的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#匿名对象"><span class="toc-number">3.2.</span> <span class="toc-text">匿名对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#封装"><span class="toc-number">3.3.</span> <span class="toc-text">封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#优点："><span class="toc-number">3.3.1.</span> <span class="toc-text">优点：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数"><span class="toc-number">3.4.</span> <span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#静态static："><span class="toc-number">3.5.</span> <span class="toc-text">静态static：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成员变量和静态成员变量的区别"><span class="toc-number">3.6.</span> <span class="toc-text">成员变量和静态成员变量的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#静态代码块"><span class="toc-number">3.7.</span> <span class="toc-text">静态代码块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个对象的流程"><span class="toc-number">3.8.</span> <span class="toc-text">创建一个对象的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计模式"><span class="toc-number">3.9.</span> <span class="toc-text">设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单例模式"><span class="toc-number">3.9.1.</span> <span class="toc-text">单例模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-number">3.10.</span> <span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#覆盖注："><span class="toc-number">3.10.1.</span> <span class="toc-text">覆盖注：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽象类"><span class="toc-number">3.11.</span> <span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口"><span class="toc-number">3.12.</span> <span class="toc-text">接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态"><span class="toc-number">3.13.</span> <span class="toc-text">多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内部类"><span class="toc-number">3.14.</span> <span class="toc-text">内部类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包"><span class="toc-number">3.15.</span> <span class="toc-text">包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">3.16.</span> <span class="toc-text">注</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

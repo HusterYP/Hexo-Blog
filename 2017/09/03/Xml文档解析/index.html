@@ -1,0 +1,915 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Xml文档解析 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言Java和Android中Xml文件的解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xml文档解析">
+<meta property="og:url" content="https://husteryp.github.io/2017/09/03/Xml文档解析/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言Java和Android中Xml文件的解析">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-05T00:06:42.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xml文档解析">
+<meta name="twitter:description" content="前言Java和Android中Xml文件的解析">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/09/03/Xml文档解析/" title="Xml文档解析" itemprop="url">Xml文档解析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-09-03T06:50:39.000Z" itemprop="datePublished"> 发表于 2017-09-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XML文件介绍"><span class="toc-number">2.</span> <span class="toc-text">XML文件介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-number">2.2.</span> <span class="toc-text">应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XML解析原理"><span class="toc-number">3.</span> <span class="toc-text">XML解析原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM解析-树型解析器"><span class="toc-number">3.1.</span> <span class="toc-text">DOM解析(树型解析器)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">3.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">3.1.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用DOM解析原理的解析工具"><span class="toc-number">3.1.3.</span> <span class="toc-text">使用DOM解析原理的解析工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JAXP"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">JAXP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DOM4J"><span class="toc-number">3.1.3.2.</span> <span class="toc-text">DOM4J</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DOM4J对XML文档进行增删改查"><span class="toc-number">3.1.3.2.1.</span> <span class="toc-text">DOM4J对XML文档进行增删改查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#xPath技术"><span class="toc-number">3.1.3.2.2.</span> <span class="toc-text">xPath技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JDOM"><span class="toc-number">3.1.3.3.</span> <span class="toc-text">JDOM</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SAX解析"><span class="toc-number">3.2.</span> <span class="toc-text">SAX解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SAX解析工具"><span class="toc-number">3.2.2.</span> <span class="toc-text">SAX解析工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Android中的Xml解析"><span class="toc-number">4.</span> <span class="toc-text">Android中的Xml解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SharedPreference"><span class="toc-number">4.1.</span> <span class="toc-text">SharedPreference()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用XmlSerializer序列化器"><span class="toc-number">4.2.</span> <span class="toc-text">使用XmlSerializer序列化器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用XmlPullParser解析XML"><span class="toc-number">4.3.</span> <span class="toc-text">使用XmlPullParser解析XML</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Java和Android中<code>Xml</code>文件的解析</p>
+<hr>
+<a id="more"></a>
+<h1 id="XML文件介绍"><a href="#XML文件介绍" class="headerlink" title="XML文件介绍"></a>XML文件介绍</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><ul>
+<li><code>XML</code>格式和<code>HTML</code>格式都是<code>SGML</code>（标准通用语言）的衍生语言，但是它比<code>HTML</code>更加的规范化，对语法要求更严格，其实这也是为了解决<code>HTML</code>不够严谨而衍生出该语言</li>
+<li><code>XML</code>允许用户自定义标签，特别注意的是其中的空格和换行都作为了原始内容处理</li>
+<li>一个<code>XML</code>文档只有一个根节点</li>
+<li>可以使用浏览器查看<code>XML</code>文档是否有语法错误</li>
+<li>示例之<code>XML</code>结构</li>
+</ul>
+<p>-</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;Person color=&quot;red&quot;&gt;
+    &lt;student&gt;
+        &lt;name&gt;张三&lt;/name&gt;
+        &lt;id&gt;2011&lt;/id&gt;
+        &lt;path&gt;韵苑十五栋&lt;/path&gt;
+    &lt;/student&gt;
+    &lt;student&gt;
+        &lt;name&gt;夏明&lt;/name&gt;
+        &lt;id&gt;2012&lt;/id&gt;
+        &lt;path&gt;韵苑十二栋&lt;/path&gt;
+    &lt;/student&gt;
+    &lt;student&gt;
+        &lt;name&gt;小红&lt;/name&gt;
+        &lt;id&gt;2014&lt;/id&gt;
+        &lt;path&gt;韵苑十三栋&lt;/path&gt;
+    &lt;/student&gt;
+&lt;/Person&gt;
+</code></pre><p><em>注</em>：后面的代码示例都是针对该<code>XML</code>文件来的</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li><code>XML</code>是一种跨平台的数据存储格式</li>
+<li>可以用于小型的数据库存储数据</li>
+<li>但是大多用于存储关系型数据，如作为应用的配置文件</li>
+</ul>
+<h1 id="XML解析原理"><a href="#XML解析原理" class="headerlink" title="XML解析原理"></a>XML解析原理</h1><h2 id="DOM解析-树型解析器"><a href="#DOM解析-树型解析器" class="headerlink" title="DOM解析(树型解析器)"></a>DOM解析(树型解析器)</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>DOM解析就是将整个<code>XML</code>文档一次性加载进内存，然后将其封装成为对象，即<code>Document</code>对象树，通过<code>Document</code>对象，一步步的获取上面的节点，通过节点对象可以访问内容</li>
+<li>注意在<code>DOM</code>解析中，由于<code>XML</code>文档是分层次的，所以将其节点封装成为了不同的对象，整个文档(<code>Document</code>)，子节点，孙节点，文本内容，属性，空白，注释，都是对象(<code>Element</code>，<code>Text</code>等)</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>因为<code>DOM</code>解析需要加文档整个加载进内存封装为对象，所以对内存的耗费比较大</li>
+</ul>
+<h3 id="使用DOM解析原理的解析工具"><a href="#使用DOM解析原理的解析工具" class="headerlink" title="使用DOM解析原理的解析工具"></a>使用DOM解析原理的解析工具</h3><h4 id="JAXP"><a href="#JAXP" class="headerlink" title="JAXP"></a><code>JAXP</code></h4><ul>
+<li><code>oracle-sun</code>公司官方处理<code>XML</code>的<code>API</code>，是<code>Java</code>自带<code>API</code>,直接使用<code>JDK</code>即可</li>
+<li>示例一之遍历所有节点</li>
+</ul>
+<p>-</p>
+<pre><code>public class JavaXml
+{
+@Test
+public void getElement() throws ParserConfigurationException, IOException, SAXException
+{
+    //通过工厂方法得到实例
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    //关联XML文件
+    Document document = builder.parse(new File(&quot;src\\xml\\test.xml&quot;));
+    //得到唯一根节点
+    Element root = document.getDocumentElement();
+    //获取根节点每一个子节点，同时递归孙节点
+    NodeList list = root.getChildNodes();
+    for (int i = 0; i &lt; list.getLength(); i++)
+    {
+        Node e = list.item(i);
+        getNode(e);
+    }
+}
+
+public void getNode(Node node)
+{
+    if (node instanceof Element) //忽略空白字符串
+    {
+        System.out.println(node.getNodeName());
+        Element e = (Element) node;
+        NodeList list = e.getChildNodes();
+        for (int i = 0; i &lt; list.getLength(); i++)
+        {
+            Node n = list.item(i);
+            if (n instanceof Element)
+                getNode(n);
+        }
+    }
+}
+}
+</code></pre><ul>
+<li>示例二之获取文本内容</li>
+</ul>
+<p>-</p>
+<pre><code>public void getText() throws ParserConfigurationException, IOException, SAXException
+{
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder builder = factory.newDocumentBuilder();
+    Document document = builder.parse(new File(&quot;src\\xml\\test.xml&quot;));
+    Element root = document.getDocumentElement();
+    NodeList list = root.getChildNodes();
+    for (int i = 0; i &lt; list.getLength(); i++)
+    {
+        Node node = list.item(i);
+        if (node instanceof Element)
+        {
+            getElementText(node);
+        }
+    }
+}
+
+public void getElementText(Node node)
+{
+    NodeList nodes = node.getChildNodes();
+    for (int i = 0; i &lt; nodes.getLength(); i++)
+    {
+        Node n = nodes.item(i);
+        if (n instanceof Element)
+        {
+        //getTextContent可以返回此节点及其后带的文本内容
+            System.out.println(n.getTextContent());
+            getElementText(n);
+        }
+    }
+
+}
+</code></pre><h4 id="DOM4J"><a href="#DOM4J" class="headerlink" title="DOM4J"></a><code>DOM4J</code></h4><ul>
+<li>非官方，但是使用最多  <a href="http://pan.baidu.com/s/1hsu0ckc" target="_blank" rel="external">dom4j链接</a></li>
+<li>示例一之遍历所有节点</li>
+</ul>
+<p>-</p>
+<pre><code>public void dom4jDemo() throws DocumentException
+{
+    //获取一个XML解析器对象
+    SAXReader reader = new SAXReader();
+    //将XML文件封装成为对象
+    File file = new File(&quot;src\\xml\\test.xml&quot;);
+    org.dom4j.Document document = reader.read(file);
+    //得到唯一根节点
+    org.dom4j.Element root = document.getRootElement();
+    //使用递归遍历所有节点
+    getChildNodes(root);
+}
+
+private void getChildNodes(org.dom4j.Element elem)
+{
+    //getTextTrim()是忽略空格和回车
+    System.out.println(elem.getName()+&quot;..&quot;+elem.getTextTrim());
+
+    //得到子节点
+    Iterator&lt; org.dom4j.Node&gt; it = elem.nodeIterator();
+    while (it.hasNext())
+    {
+        org.dom4j.Node node = it.next();
+
+        //1.判断是否是标签节点
+        if (node instanceof  org.dom4j.Element)
+        {
+            org.dom4j.Element el = (org.dom4j.Element) node;
+            //递归
+            getChildNodes(el);
+        }
+    }
+
+}
+</code></pre><ul>
+<li>示例二之获取文本内容</li>
+</ul>
+<p>-</p>
+<pre><code>public void getText() throws DocumentException
+{
+    SAXReader reader = new SAXReader();
+    Document document = reader.read(new File(&quot;src\\xml\\test.xml&quot;));
+    Element root = document.getRootElement();
+    List&lt;Element&gt; list = root.elements();
+    for(Element e:list)
+    {
+        System.out.println(e.getName());
+        List&lt;Element&gt;elements = e.elements();
+        for(Element element:elements)
+        {
+            System.out.println(element.getName()+&quot;..&quot;+element.getTextTrim());;
+        }
+    }
+}  
+</code></pre><h5 id="DOM4J对XML文档进行增删改查"><a href="#DOM4J对XML文档进行增删改查" class="headerlink" title="DOM4J对XML文档进行增删改查"></a><code>DOM4J</code>对<code>XML</code>文档进行增删改查</h5><ul>
+<li>将内存中的一<code>XML</code>文档写入文件中</li>
+</ul>
+<p><em>注意：</em>其中的<code>OutputForamt</code>可以使用其中的静态方法来构造一个格式化对象，<code>OutputFormat.createCompactFormat()</code>表示一个写入<code>XML</code>文件时，格式更加紧凑，也就是没有空格，这种情况下更节约内存，多用于在发布应用时候；与之对应的是<code>OutputFormat.createPrettyPrint()</code><br>，这种情况下会输出换行等空格，可读性更强，更加适合调试的时候<br>-</p>
+<pre><code>XMLWriter writer = new XMLWriter(OutputStream, OutputForamt)
+wirter.write(Document);
+</code></pre><ul>
+<li>如果将文档对象和写入对象定位为同一个文件的话，就可以对<code>XML</code>文件进行修改</li>
+<li>但是存在的问题是，如果标签节点藏得比较深的话，取节点对象的时候，会附加很多不必要的语句，这时可以使用<code>xPath</code>技术</li>
+</ul>
+<h5 id="xPath技术"><a href="#xPath技术" class="headerlink" title="xPath技术"></a><code>xPath</code>技术</h5><ul>
+<li>作用：可以快速的获取节点对象</li>
+<li><a href="http://pan.baidu.com/s/1jIBqREQ" target="_blank" rel="external">xPath使用文档</a></li>
+<li>使用的时候要导入<code>jaxen-1.1-beta-6.jar</code>，注意这个包在上面<code>DOM4J</code>的<code>lib</code>依赖库中</li>
+<li><p>查询方法</p>
+<blockquote>
+<p>selectNodes(“xpath表达式”);   查询多个节点对象</p>
+<p>selectSingleNode(“xpath表达式”);  查询一个节点对象</p>
+</blockquote>
+</li>
+<li><p><code>xPath</code>语法(具体可见<code>xPath</code>文档)</p>
+</li>
+</ul>
+<blockquote>
+<p>/      绝对路径      表示从xml的根位置开始或子元素（一个层次结构）</p>
+<p>//     相对路径       表示不分任何层次结构的选择元素。</p>
+<ul>
+<li>通配符         表示匹配所有元素</li>
+</ul>
+<p>[]      条件           表示选择什么条件下的元素</p>
+<p>@     属性            表示选择属性节点</p>
+<p>and     关系          表示条件的与关系（等价于&amp;&amp;）</p>
+<p>text()    文本           表示选择文本内容</p>
+</blockquote>
+<ul>
+<li>示例之<code>xPath</code>使用</li>
+</ul>
+<p>-</p>
+<pre><code>public void DeleteElement() throws DocumentException
+{
+    String path = &quot;//name&quot;;  //获取所有name标签
+    String filePath = &quot;.\\src\\xml\\test.xml&quot;;
+    Document doc = new SAXReader().read(filePath);
+    List&lt;Node&gt; nodes = doc.selectNodes(path);
+    for(Node node:nodes)
+    {
+        System.out.println(node);
+    }
+}
+</code></pre><ul>
+<li>同样可以使用<code>xPath</code>技术读取<code>HTML</code>文件</li>
+</ul>
+<h4 id="JDOM"><a href="#JDOM" class="headerlink" title="JDOM"></a><code>JDOM</code></h4><ul>
+<li>非官方</li>
+</ul>
+<h2 id="SAX解析"><a href="#SAX解析" class="headerlink" title="SAX解析"></a>SAX解析</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><ul>
+<li>加载一点，读取一点，处理一点，对内存的要求较低</li>
+</ul>
+<h3 id="SAX解析工具"><a href="#SAX解析工具" class="headerlink" title="SAX解析工具"></a><code>SAX</code>解析工具</h3><ul>
+<li><code>sun</code>公司提供，内置在<code>JDK</code>中</li>
+<li>示例之<code>SAX</code>解析</li>
+</ul>
+<p><em>注：</em>通常采用继承<code>DefaultHandler</code>来构造一个处理器对象，处理器对象由程序自动调用</p>
+<p>-</p>
+<pre><code>public class SAXDemo
+{
+    @Test
+    public void getXml() throws ParserConfigurationException, SAXException, IOException
+    {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        File file = new File(&quot;.\\src\\xml\\user.xml&quot;);
+        MyHandler handler = new MyHandler();
+        parser.parse(file, handler);
+    }
+}
+
+
+public class MyHandler extends DefaultHandler
+{
+    //当读取到文档开始的时候调用
+    @Override
+    public void startDocument() throws SAXException
+    {
+        System.out.println(&quot;Document start get&quot;);
+    }
+    //当读取到文档结束的时候调用
+    @Override
+    public void endDocument() throws SAXException
+    {
+        System.out.println(&quot;Document end get&quot;);
+    }
+    //当读取到开始节点的时候调用
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
+    {
+        System.out.println(&quot;StartElement...&quot; + qName);
+    }
+    //当读取到文档结束节点的时候调用
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException
+    {
+        System.out.println(&quot;EndElement...&quot; + qName);
+    }
+    //当读取到文本的时候调用
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException
+    {
+        String content = new String(ch, start, length);
+        System.out.println(content);
+    }
+}
+</code></pre><h1 id="Android中的Xml解析"><a href="#Android中的Xml解析" class="headerlink" title="Android中的Xml解析"></a>Android中的Xml解析</h1><h2 id="SharedPreference"><a href="#SharedPreference" class="headerlink" title="SharedPreference()"></a><code>SharedPreference()</code></h2><ul>
+<li>写<code>XML</code>文件</li>
+</ul>
+<p>-</p>
+<pre><code>public void sharedPreferenceDemo()
+{
+    SharedPreferences preferences = getSharedPreferences(&quot;demo&quot;,MODE_PRIVATE);
+    SharedPreferences.Editor editor = preferences.edit();
+    editor.putString(&quot;name&quot;,&quot;hhh&quot;);
+    editor.putString(&quot;id&quot;,&quot;1001&quot;);
+    editor.commit();
+}
+</code></pre><ul>
+<li>读取<code>XML</code>文件</li>
+</ul>
+<p>-</p>
+<pre><code>public void getXml()
+{
+    SharedPreferences preferences = getSharedPreferences(&quot;demo&quot;,MODE_PRIVATE);
+    String name = preferences.getString(&quot;name&quot;,&quot;&quot;);
+    String id = preferences.getString(&quot;id&quot;,&quot;&quot;);
+}
+</code></pre><h2 id="使用XmlSerializer序列化器"><a href="#使用XmlSerializer序列化器" class="headerlink" title="使用XmlSerializer序列化器"></a>使用<code>XmlSerializer</code>序列化器</h2><ul>
+<li>生成<code>XML</code>文件</li>
+</ul>
+<p>-</p>
+<pre><code>public void XmlSerializerDemo(){
+    XmlSerializer serializer = Xml.newSerializer();
+    File file = new File(&quot;sdcard/demo.xml&quot;);
+    FileOutputStream out;
+    try{
+        out = new FileOutputStream(file);
+        serializer.setOutput(out,&quot;utf-8&quot;);
+        serializer.startDocument(&quot;utf-8&quot;,true);
+        serializer.startTag(null,&quot;smss&quot;);
+        for(int i=0;i&lt;10;i++){
+            serializer.startTag(null,&quot;sms&quot;);
+            serializer.text(&quot;text&quot;+i);
+            serializer.endTag(null,&quot;sms&quot;);
+        }
+        serializer.endTag(null,&quot;smss&quot;);
+        serializer.endDocument();
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+}
+</code></pre><h2 id="使用XmlPullParser解析XML"><a href="#使用XmlPullParser解析XML" class="headerlink" title="使用XmlPullParser解析XML"></a>使用<code>XmlPullParser</code>解析<code>XML</code></h2><ul>
+<li>示例之<code>XmlPullParser</code>解析</li>
+</ul>
+<p>-</p>
+<pre><code>public void getXmlDemo() {
+    XmlPullParser pullParser = Xml.newPullParser();
+    FileInputStream in;
+    List&lt;CityBean&gt; list = new ArrayList&lt;&gt;();
+    CityBean city = null;
+    try {
+        in = new FileInputStream(&quot;sdcard/info.xml&quot;);
+        pullParser.setInput(in, &quot;utf-8&quot;);
+        //同SAX解析一样是事件响应型的，需要根据事件类型确定读取进度
+        int type = pullParser.getEventType();
+        while (type != END_DOCUMENT) {
+            switch (type) {
+                case START_TAG:
+                    if (&quot;city&quot;.equals(pullParser.getName())) {
+                        city = new CityBean();
+                    }
+                    else if (&quot;CityName&quot;.equals(pullParser.getName())) {
+                        city.setName(pullParser.nextText());
+                    }
+                    else if (&quot;Temp&quot;.equals(pullParser.getName())) {
+                        //获取当前节点的文本，并把指针移动到当前节点的结尾
+                        city.setTemp(pullParser.nextText());
+                    }
+                    else if (&quot;Province&quot;.equals(pullParser.getName())) {
+                        city.setProvince(pullParser.nextText());
+                    }
+                    break;
+                case END_TAG:
+                    if (&quot;city&quot;.equals(pullParser.getName())) {
+                        list.add(city);
+                    }
+                    break;
+            }
+            //把指针移动到下一个节点
+            type = pullParser.next();
+        }
+        if (list.isEmpty())
+            Log.d(&quot;@HusterYP&quot;, String.valueOf(&quot;Error!&quot;));
+        else
+            for (CityBean c : list) {
+                Log.d(&quot;@HusterYP&quot;, String.valueOf(c.toString()));
+            }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/09/03/Xml文档解析/" data-title="Xml文档解析 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/09/10/贵创第一次分享/" title="贵创第一次分享">
+  <strong>上一篇：</strong><br/>
+  <span>
+  贵创第一次分享</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/08/30/多线程/"  title="多线程">
+ <strong>下一篇：</strong><br/> 
+ <span>多线程
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/09/03/Xml文档解析/" data-title="Xml文档解析" data-url="https://husteryp.github.io/2017/09/03/Xml文档解析/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XML文件介绍"><span class="toc-number">2.</span> <span class="toc-text">XML文件介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-number">2.2.</span> <span class="toc-text">应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XML解析原理"><span class="toc-number">3.</span> <span class="toc-text">XML解析原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM解析-树型解析器"><span class="toc-number">3.1.</span> <span class="toc-text">DOM解析(树型解析器)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-number">3.1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点"><span class="toc-number">3.1.2.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用DOM解析原理的解析工具"><span class="toc-number">3.1.3.</span> <span class="toc-text">使用DOM解析原理的解析工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JAXP"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">JAXP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DOM4J"><span class="toc-number">3.1.3.2.</span> <span class="toc-text">DOM4J</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#DOM4J对XML文档进行增删改查"><span class="toc-number">3.1.3.2.1.</span> <span class="toc-text">DOM4J对XML文档进行增删改查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#xPath技术"><span class="toc-number">3.1.3.2.2.</span> <span class="toc-text">xPath技术</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JDOM"><span class="toc-number">3.1.3.3.</span> <span class="toc-text">JDOM</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SAX解析"><span class="toc-number">3.2.</span> <span class="toc-text">SAX解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原理-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SAX解析工具"><span class="toc-number">3.2.2.</span> <span class="toc-text">SAX解析工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Android中的Xml解析"><span class="toc-number">4.</span> <span class="toc-text">Android中的Xml解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SharedPreference"><span class="toc-number">4.1.</span> <span class="toc-text">SharedPreference()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用XmlSerializer序列化器"><span class="toc-number">4.2.</span> <span class="toc-text">使用XmlSerializer序列化器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用XmlPullParser解析XML"><span class="toc-number">4.3.</span> <span class="toc-text">使用XmlPullParser解析XML</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

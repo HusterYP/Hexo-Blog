@@ -1,0 +1,840 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>贵创第一次分享 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言贵创第一次分享之Java疑难杂症 –记Java学习之旅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贵创第一次分享">
+<meta property="og:url" content="https://husteryp.github.io/2017/09/10/贵创第一次分享/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言贵创第一次分享之Java疑难杂症 –记Java学习之旅">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-12T13:51:18.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="贵创第一次分享">
+<meta name="twitter:description" content="前言贵创第一次分享之Java疑难杂症 –记Java学习之旅">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/09/10/贵创第一次分享/" title="贵创第一次分享" itemprop="url">贵创第一次分享</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-09-10T12:17:58.000Z" itemprop="datePublished"> 发表于 2017-09-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重载与重写"><span class="toc-number">2.</span> <span class="toc-text">重载与重写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#来源"><span class="toc-number">2.2.</span> <span class="toc-text">来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">2.3.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重载解析"><span class="toc-number">2.3.1.</span> <span class="toc-text">重载解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写解析"><span class="toc-number">2.3.2.</span> <span class="toc-text">重写解析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态中的调用问题"><span class="toc-number">3.</span> <span class="toc-text">多态中的调用问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#转型"><span class="toc-number">3.1.</span> <span class="toc-text">转型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态中成员变量的调用"><span class="toc-number">3.2.</span> <span class="toc-text">多态中成员变量的调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态中成员函数的调用"><span class="toc-number">3.3.</span> <span class="toc-text">多态中成员函数的调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态中静态成员方法的调用"><span class="toc-number">3.4.</span> <span class="toc-text">多态中静态成员方法的调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态调用的解释"><span class="toc-number">3.5.</span> <span class="toc-text">多态调用的解释</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">最后</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#按值传递还是按引用传递？"><span class="toc-number">4.1.</span> <span class="toc-text">按值传递还是按引用传递？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组长度为0与数组指向null"><span class="toc-number">4.2.</span> <span class="toc-text">数组长度为0与数组指向null</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>贵创第一次分享之Java疑难杂症</p>
+<p>–记Java学习之旅</p>
+<hr>
+<a id="more"></a>
+<h1 id="重载与重写"><a href="#重载与重写" class="headerlink" title="重载与重写"></a>重载与重写</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>重载(<code>overload</code>)：函数之间函数名相同但是参数的类型或者个数不同，与返回值无关</li>
+<li>重写(<code>override</code>)：也叫覆盖或者复写，是<code>Java</code>中<code>override</code>的不同翻译方式罢了；是指在继承或者实现关系中，子类方法与父类方法方法名，参数列表，返回值等完全相同，实现不同(其实这里的定义不是很准确，具体见后面)</li>
+</ul>
+<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><ul>
+<li>两者都是<code>Java</code>中多态性的体现</li>
+<li>其实C语言中是没有重载和重写的概念的，因为编译器的原因，C语言并不支持函数同名；重载和重写随着面向对象的兴起和多态的需求，才逐渐开始占据比较重要的位置<h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><h3 id="重载解析"><a href="#重载解析" class="headerlink" title="重载解析"></a>重载解析</h3></li>
+<li><p>首先提一些最基本的：不能依据方法的返回值来区分重载；不能依据方法的访问权限来区分重载；成员变量之间没有重载的说法等</p>
+</li>
+<li><p>重载主要是建立在同一个类的不同方法上，这里之所以说是主要，是因为在继承关系中，当子类方法与父类方法满足重载的关系时，这也是重载，而非覆盖。如下代码；其实这种现象的出现是继承时子类也会拥有父类的<code>public</code>属性和方法</p>
+</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    public void show()
+    {
+        System.out.println(&quot;Father Show&quot;);
+    }
+}
+class Child extends Father
+{
+    public void show(int i)
+    {
+        System.out.println(&quot;Child Show&quot;);
+    }
+}
+</code></pre><ul>
+<li>如下函数的重载，为了遵循重载的准确性原则，所以即使<code>null</code>的值都可以赋值给<code>Object</code>和<code>String</code>,但是由于<code>String</code>继承于<code>Object</code>,所以最终调用的是带<code>String</code>参数的函数；所谓的准确性原则通俗一点来说就是，从下往上找，先找到的符合，或者在不具备继承关系之间的，就调用赋值最<code>紧凑</code>的那个</li>
+</ul>
+<p>-</p>
+<pre><code>class Demo
+{
+    public void show(Object o)
+    {
+        System.out.println(&quot;Object&quot;);
+    }
+    public void show(String s)
+    {
+        System.out.println(&quot;String&quot;);
+    }
+    public void show(int i)
+    {
+        System.out.println(&quot;int&quot;);
+    }
+}
+public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+        Demo demo = new Demo();
+        demo.show(null); //输出String
+    }
+}
+</code></pre><ul>
+<li>但是对于下面这种调用时就会出现调用不确定的情况，这是因为编译器在<code>String</code>和<code>String[]</code>之间找不到更合适者</li>
+</ul>
+<p>-</p>
+<pre><code>class Demo
+{
+    public void show(String s)
+    {
+        System.out.println(&quot;String&quot;);
+    }
+    public void show(String[]s)
+    {
+        System.out.println(&quot;String[]&quot;);
+    }
+}
+public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+        Demo demo = new Demo();
+        demo.show(null);  //报错
+    }
+}
+</code></pre><ul>
+<li><p>对于参数不定的函数重载，如下代码，其实编译器在处理不定参数的时候，是处理为一个数组；所以下面的输出中，依据重载的准确性原则，下面按照值的符合更紧凑来调用；若在下面再加一个重载</p>
+<p>  public void show(String[] s){…}</p>
+</li>
+</ul>
+<p>这样的话会报错，和<code>show(String...s)</code>冲突，这也说明了编译器对于不定参数是处理为数组的</p>
+<p>-</p>
+<pre><code>class Demo
+{
+    public void show(String s)
+    {
+        System.out.println(&quot;String&quot;);
+    }
+    public void show(String...s)
+    {
+        System.out.println(&quot;String...&quot;);
+    }
+}
+public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+        Demo demo = new Demo();
+        demo.show(&quot;h&quot;);            //String
+        demo.show();            //String...
+        demo.show(new String[]{&quot;hell&quot;,&quot;he&quot;});//String...
+//        demo.show(null);        //报错
+    }
+}
+</code></pre><ul>
+<li>关于静态方法之间和静态方法与非静态方法之间的重载，可以视静态方法等效为非静态处理</li>
+</ul>
+<h3 id="重写解析"><a href="#重写解析" class="headerlink" title="重写解析"></a>重写解析</h3><ul>
+<li>重写上面的概念说要返回值类型，参数类型，函数名等完全一样，这中说法不太准确，参见下面代码</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    public Object show()
+    {
+        System.out.println(&quot;Object show&quot;);
+        return null;
+    }
+}
+class Child extends Father
+{
+    public String show()
+    {
+        System.out.println(&quot;String show&quot;);
+        return null;
+    }
+}
+public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+        Child child = new Child();
+        child.show();//String show
+    }
+}
+</code></pre><ul>
+<li>在<code>Java核心编程</code>中的解释是：<code>允许子类将覆盖方法的返回类型定义为原返回类型的子类型</code>；其实也可以这样理解，在<code>Child</code>中继承了父类返回值为<code>Object</code>的<code>show</code>方法，但是在子类还有一个返回值为<code>String</code>类型的<code>show</code>方法，因为不能依据函数的返回值类型来定义函数的重载，所以这里应该是重写(覆盖)；需要注意的是这种情况只有在子类方法返回值是父类待重载方法返回值的子类才行，不能父类待重载方法的返回值是子类返回值的子类，如下代码报错</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    public String show()
+    {
+        System.out.println(&quot;Father show&quot;);
+        return null;
+    }
+}
+
+class Child extends Father
+{
+    public Object show()  //报错
+    {
+        System.out.println(&quot;Child show&quot;);
+        return null;
+    }
+}
+</code></pre><ul>
+<li>子类方法要覆盖父类方法，必须保证权限大于等于父类权限，如果父类方法为<code>private</code>的话，那么子类根本就不能继承这个函数，也就谈不上覆盖了</li>
+<li>静态方法之间不存在覆盖的说法，覆盖准确的说是要针对非静态的成员函数之间；继承关系中的同名同参同返回值的静态方法之间只是一种隐藏，因为静态方法与对象无关，通过对象来调用静态方法其实意义不大验证方法是：在<code>IDEA</code>中我们都知道通过快捷键<code>Control+o</code>可以快速定位需要重写的方法，但是当父类中有一个静态方法时，如果想要在子类中去”重写”这个静态方法的话，通过<code>Control+o</code>的形式是找不到该静态方法的，但是对于非静态的方法却可以这样通过快捷键的方式来重写，这就验证了父类中的静态方法是不能<code>override</code>的</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    public static void show()
+    {
+        System.out.println(&quot;Object show&quot;);
+    }
+}
+
+class Child extends Father
+{
+    public void show()//报错
+    {
+        System.out.println(&quot;Child show&quot;);
+    }
+}
+</code></pre><ul>
+<li>还有同样的是成员变量之间不存在覆盖，覆盖是非静态成员函数之间的说法</li>
+</ul>
+<h1 id="多态中的调用问题"><a href="#多态中的调用问题" class="headerlink" title="多态中的调用问题"></a>多态中的调用问题</h1><blockquote>
+<p>多态的出现使得程序的扩展性增强了，但是当需要先上转型或者向下转型的时候，各成员变量和成员函数的调用规律是怎样的呢？还有对于静态成员的调用是否有区别呢?</p>
+</blockquote>
+<h2 id="转型"><a href="#转型" class="headerlink" title="转型"></a>转型</h2><ul>
+<li>先上转型：父类引用指向子类对象(<code>Father f =  new Child();</code>)</li>
+<li>向下转型：子类引用指向父类对象(<code>Child c = new Father();</code>)</li>
+</ul>
+<h2 id="多态中成员变量的调用"><a href="#多态中成员变量的调用" class="headerlink" title="多态中成员变量的调用"></a>多态中成员变量的调用</h2><ul>
+<li>下面的继承关系中，使用默认权限修饰符(子类和同包中可以访问)，子类继承了父类的成员变量<code>m</code>，此时对子类对象向上转型的时候，用父类引用调用该成员变量，输出的是父类中的值(虽然子类中有一个同名的成员变量)；可以验证的是静态成员变量调用规律相同</li>
+<li>总结起来就是：当先上转型的时候，调用成员变量，看等号的左边</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    int m = 0;
+}
+class Child extends Father
+{
+    int m = 1;
+}
+public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+        Father father = new Child();
+        System.out.println(father.m);//输出0
+    }
+}
+</code></pre><h2 id="多态中成员函数的调用"><a href="#多态中成员函数的调用" class="headerlink" title="多态中成员函数的调用"></a>多态中成员函数的调用</h2><ul>
+<li>下面的向上转型调用成员函数的情况，调用的实际是子类中的成员方法(相当于覆盖了，因为成员变量之间不存在覆盖的说法)</li>
+<li>总结起来就是：向上转型时，调用成员函数，看等号的左边</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    public void show()
+    {
+        System.out.println(&quot;Father show&quot;);
+    }
+}
+class Child extends Father
+{
+    public void show()
+    {
+        System.out.println(&quot;Child show&quot;);
+    }
+}
+public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+        Father father = new Child();
+        father.show();//输出Child show
+    }
+}
+</code></pre><h2 id="多态中静态成员方法的调用"><a href="#多态中静态成员方法的调用" class="headerlink" title="多态中静态成员方法的调用"></a>多态中静态成员方法的调用</h2><ul>
+<li>虽然静态成员方法与对象无关，但是这里为了做一个讲解，仍用对象去调用静态成员方法，如下所示，实际调用的是父类中的静态成员方法</li>
+<li>总结起来就是：多态调用时，静态方法的调用看等号的左边</li>
+</ul>
+<p>-</p>
+<pre><code>class Father
+{
+    public static void show()
+    {
+        System.out.println(&quot;Father show&quot;);
+    }
+}
+class Child extends Father
+{
+    public static void show()
+    {
+        System.out.println(&quot;Child show&quot;);
+    }
+}
+public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+        Father father = new Child();
+        father.show(); //输出Father show
+    }
+}
+</code></pre><h2 id="多态调用的解释"><a href="#多态调用的解释" class="headerlink" title="多态调用的解释"></a>多态调用的解释</h2><ul>
+<li>首先需要区别多态的两种形式：编译时多态和运行时多态；编译时多态就是上面所说的重载，是指在编译过程中，通过函数的参数类型，参数个数等来确定调用的是哪个方法；运行时多态又叫动态绑定，就是上面所说的覆盖，是指在运行时由<code>JVM</code>确定具体引用的是哪个类的对象，然后确定方法的调用，运行时多态依赖于具体的对象</li>
+</ul>
+<ul>
+<li>因为成员变量之间不存在所谓的多态，也不存在覆盖的说法，那么它就不需要根据运行时的具体对象去确定应该调用哪个类中的成员变量了，只需要根据引用类型即可确定</li>
+</ul>
+<ul>
+<li>调用静态方法时，由于静态方法与对象无关，它是随着类的加载而加载，所以对于静态方法的调用实际上就不需要实例化，那么就不存在多态的说法(静态方法的”覆盖”本质上只是一种隐藏)；在转型中调用静态方法时，实际上在运行时Java虚拟机已经确定好了方法所属的类，就不会再去检查引用实际指向的类对象是哪个了</li>
+<li>对于非静态方法的先上转型调用，此时需要根据所引用对象的具体类型去确定调用的是哪个方法</li>
+</ul>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><h2 id="按值传递还是按引用传递？"><a href="#按值传递还是按引用传递？" class="headerlink" title="按值传递还是按引用传递？"></a>按值传递还是按引用传递？</h2><ul>
+<li>最后提一下的是在<code>Java</code>中参数传递时实际上是没有引用传递的，都是按值传递；平时所说的三大引用类型的传递，实际上也是按值传递，只不过引用变量中存储的是一个地址罢了，此时传递的实际上是一个地址值</li>
+</ul>
+<h2 id="数组长度为0与数组指向null"><a href="#数组长度为0与数组指向null" class="headerlink" title="数组长度为0与数组指向null"></a>数组长度为0与数组指向<code>null</code></h2><ul>
+<li>在实际应用中，为了增强程序的健壮性，通常遇到数组的时候，为了避免出现空指针异常，通常会先判断是否为<code>null</code>；但是更为常见的判断是</li>
+</ul>
+<pre><code>if(num==null||num.length==0){...} 
+</code></pre><ul>
+<li>首先需要注意的是上面的判断顺序最好不要改变，否则的话会出现空指针异常，如下</li>
+</ul>
+<p>-</p>
+<pre><code>public class OverloadDemo
+{
+    public static void main(String[] args)
+    {
+       int[] num = null;
+       if(num.length==0||num==null)//NullPointerException
+           System.out.println();
+    }
+}
+</code></pre><ul>
+<li>出现上面这种情况的原因其实也很容易想到，稍微注意一下其实就知道，当<code>num</code>指向<code>null</code>的时候，按照执行顺序会先执行<code>num.length==0</code>的判断，就是这种情况下导致了<code>NullPointerException</code></li>
+<li>对于数组为空和数组指向<code>null</code>的区别，参见下面代码；<code>null</code>可以用于引用类型的初始化，但是其与数组为空的区别是：数组虽然为空，但是其还是一个对象，在堆内存还是分配了一个首地址；而对于<code>null</code>，更多的是对<code>JVM</code>垃圾回收机制的一个提醒，意味着该对象可以被回收</li>
+</ul>
+<p>-</p>
+<pre><code>int[] num = null;//数组指向null，不可操作
+int[] num = new int[0];//数组长度为0，可以一定程度上操作
+</code></pre><ul>
+<li>关于的此的相似的情况还有字符串中<code>&quot;&quot;</code>和<code>null</code>的区别</li>
+<li>所以当一个函数需要返回数组时，一般都是返回的空数组<code>null</code>，这是为了方便调用者；但是，身为调用着，调用时还是应该先判<code>null</code></li>
+<li>其实这里更推荐的写法应该如下，也就是说将常量值置为左直；但是笔者认为，这个在<code>Java</code>中其实已经有了一定程度上的优化，因为对于类似的判断语句，即使写为<code>if(num=null)</code>，编译器是会报错的；但是对于类似<code>C语言</code>样的编译器，为了防止误写，还是应该将常量置为左值，因为它的编译器允许这样的操作</li>
+</ul>
+<p>-</p>
+<pre><code>int[] num = null;
+if(null==num||0==num.length)
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/09/10/贵创第一次分享/" data-title="贵创第一次分享 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/11/06/hello-world/" title="Hello World">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Hello World</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/09/03/Xml文档解析/"  title="Xml文档解析">
+ <strong>下一篇：</strong><br/> 
+ <span>Xml文档解析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/09/10/贵创第一次分享/" data-title="贵创第一次分享" data-url="https://husteryp.github.io/2017/09/10/贵创第一次分享/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重载与重写"><span class="toc-number">2.</span> <span class="toc-text">重载与重写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#来源"><span class="toc-number">2.2.</span> <span class="toc-text">来源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">2.3.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重载解析"><span class="toc-number">2.3.1.</span> <span class="toc-text">重载解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写解析"><span class="toc-number">2.3.2.</span> <span class="toc-text">重写解析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多态中的调用问题"><span class="toc-number">3.</span> <span class="toc-text">多态中的调用问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#转型"><span class="toc-number">3.1.</span> <span class="toc-text">转型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态中成员变量的调用"><span class="toc-number">3.2.</span> <span class="toc-text">多态中成员变量的调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态中成员函数的调用"><span class="toc-number">3.3.</span> <span class="toc-text">多态中成员函数的调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态中静态成员方法的调用"><span class="toc-number">3.4.</span> <span class="toc-text">多态中静态成员方法的调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多态调用的解释"><span class="toc-number">3.5.</span> <span class="toc-text">多态调用的解释</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#最后"><span class="toc-number">4.</span> <span class="toc-text">最后</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#按值传递还是按引用传递？"><span class="toc-number">4.1.</span> <span class="toc-text">按值传递还是按引用传递？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组长度为0与数组指向null"><span class="toc-number">4.2.</span> <span class="toc-text">数组长度为0与数组指向null</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

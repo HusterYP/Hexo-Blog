@@ -1,0 +1,809 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>C语言指针与数组 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言近日准备系统的学习一下数据结构，于是就先提前温习了一下C语言中的指针与数组部分，顺便总结一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言指针与数组">
+<meta property="og:url" content="https://husteryp.github.io/2017/07/27/C指针与数组/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言近日准备系统的学习一下数据结构，于是就先提前温习了一下C语言中的指针与数组部分，顺便总结一下">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-02T06:39:28.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C语言指针与数组">
+<meta name="twitter:description" content="前言近日准备系统的学习一下数据结构，于是就先提前温习了一下C语言中的指针与数组部分，顺便总结一下">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/07/27/C指针与数组/" title="C语言指针与数组" itemprop="url">C语言指针与数组</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-07-26T18:37:12.000Z" itemprop="datePublished"> 发表于 2017-07-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组与指针"><span class="toc-number">2.</span> <span class="toc-text">数组与指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一维数组"><span class="toc-number">2.1.</span> <span class="toc-text">一维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二维数组"><span class="toc-number">2.2.</span> <span class="toc-text">二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针与数组"><span class="toc-number">2.3.</span> <span class="toc-text">指针与数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#程序："><span class="toc-number">2.3.1.</span> <span class="toc-text">程序：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组形参的申明"><span class="toc-number">2.4.</span> <span class="toc-text">数组形参的申明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#考虑程序："><span class="toc-number">2.4.1.</span> <span class="toc-text">考虑程序：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#const修饰："><span class="toc-number">2.5.</span> <span class="toc-text">const修饰：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#考虑程序：-1"><span class="toc-number">2.5.1.</span> <span class="toc-text">考虑程序：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多维数组"><span class="toc-number">2.6.</span> <span class="toc-text">多维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指向多维数组的指针"><span class="toc-number">2.7.</span> <span class="toc-text">指向多维数组的指针</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>近日准备系统的学习一下数据结构，于是就先提前温习了一下C语言中的指针与数组部分，顺便总结一下</p>
+<hr>
+<a id="more"></a>
+<h1 id="数组与指针"><a href="#数组与指针" class="headerlink" title="数组与指针"></a>数组与指针</h1><hr>
+<h2 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h2><ul>
+<li><p>未初始化时全部为垃圾值，初始化没有完成的话其余值置0</p>
+</li>
+<li><p>尽量采用宏定义或者sizeof()的形式来决定数组长度，这样可以减少以后数组长度改变时代码的变动（例下）</p>
+</li>
+</ul>
+<pre><code>`#define SIZE 10`
+
+`int Array[SIZE];`
+</code></pre><p>或者</p>
+<pre><code>int length = sizeof(Array) / sizeof(Array[0]);
+//（但是要注意的是这种情况下不适合指针指向数组时，此时对于指针用这个就只相当于数组首元素，结果永远为1，具体见下三.4）
+</code></pre><ul>
+<li>如何指定初始化数组中的某个元素（对于支持C99的编译器，从VS2013版本开始就能够比较好的支持C99了）：例</li>
+</ul>
+<p><code>int Array[10] = {[9] = 10};//这个中只有最后一个元素被初始化为10，其余值默认置0</code></p>
+<ul>
+<li><p>C语言中的变长数组：(注意，以下这种写法只在支持C99的编译器中才不会报错，C11将其列为了可选的，在VS2013中不可以)</p>
+<p> int n = 10;</p>
+<p> int Array[n];</p>
+</li>
+<li><p>不可以用const修饰的变量来定义数组长度，因为在C语言中const修饰的值不是一个常量，这与C++中不同(见下面注)</p>
+</li>
+<li><p>编译器不会检查数组下标是否越界，数组下标越界会导致程序异常退出</p>
+</li>
+</ul>
+<h2 id="二维数组"><a href="#二维数组" class="headerlink" title="二维数组"></a>二维数组</h2><ul>
+<li>二维数组的两种初始化方式</li>
+</ul>
+<p><code>int Array[2][3] = { {1,2,3},{4,5,6} };</code></p>
+<p>也可以</p>
+<p><code>int Array[2][3] = {1,2,3,4}//但是这种的话就是按照顺序逐行的初始化，数据不够的默认置0</code></p>
+<h2 id="指针与数组"><a href="#指针与数组" class="headerlink" title="指针与数组"></a>指针与数组</h2><ul>
+<li><p>数组名就是第一个数组元素的地址，都是常量值，不可变，但是指针是变量，可以增减</p>
+</li>
+<li><p>指针使用一种符号的形式使用地址，更接近机器语言，效率更高</p>
+</li>
+<li><p>指针加一，是指增加一个存储单元，对于数组而言，是指向下一个元素的地址，而不是下一个字节的地址，这就是为什么声明指针必须指明所指对象类型的原因</p>
+</li>
+</ul>
+<p>所以对于数组而言，下面是正确的</p>
+<pre><code>int Array[4];
+
+int *p;
+
+p = Array;
+</code></pre><p>那么</p>
+<p><code>*(p+2)=p[2]=Array[2];//是同一个意思</code></p>
+<h3 id="程序："><a href="#程序：" class="headerlink" title="程序："></a>程序：</h3><hr>
+<pre><code>int Sum(int *a)
+{
+    int sum = 0;
+    printf(&quot;%d\n&quot;, sizeof(a));
+    printf(&quot;%d\n&quot;, sizeof(a[1]));
+    for (int i = 0; i &lt; sizeof(a) / sizeof(a[0]); i++)
+    {
+        sum += a[i];
+    }
+    return sum;
+}
+int main()
+{
+    int a[5] = { 9, 2, 3, 4, 5 };
+    int sum = Sum(a);
+    printf(&quot;%d&quot;, sum);
+    printf(&quot;%d&quot;, sizeof(a));
+    return 0;
+}
+</code></pre><hr>
+<p>上面程序的本意是想要尝试不用传入数组长度，而可以动态的求数组长度，但是结果是只输出了首项的值，由此这个也说明了数组传入的时候传入首元素地址<br>然后通过指针的增加达到改变指针指向的目的，同时也要由此深刻理解数组在内存中的存储是逻辑和物理上连续的，特别注意在物理上也是连续的，所以通过<br>指针的移动才能正确的改变指向，也可以通过输出数组<code>a[0]</code>,<code>a[1]</code>,<code>a[2]</code>来看<br>另外，在<code>Sum</code>函数中的<code>printf(&quot;%d\n&quot;, sizeof(a));</code>虽然输出的是4，但是要理解其中的含义，这个其实是表示的系统用多少字节来存储地址（注意<code>a</code>是表示的<br>地址，而不是与什么<code>int</code>，<code>double</code>有关），但是对于<code>main</code>函数中的<code>printf(&quot;%d&quot;, sizeof(a));</code>输出的则是20，这个就与<code>int</code>，<code>double</code>类型有关了，因为<code>a</code>所代表<br>的整个数组；<strong>总结起来就是在指针或者数组作为形参的时候，由于传入的长度也是未知的，所以这时候只能做首地址处理</strong></p>
+<h2 id="数组形参的申明"><a href="#数组形参的申明" class="headerlink" title="数组形参的申明"></a>数组形参的申明</h2><hr>
+<pre><code>void Sum(int *a);
+
+void Sum(int *);
+
+void Sum(int a[]);
+
+void Sum(int []);
+</code></pre><hr>
+<ul>
+<li>思考程序：</li>
+</ul>
+<p>通过以下程序深刻理解指针的移动不是以一个字节为单位的，而是根据其所代表的数据类型来决定每次移动的字节数的<br>以下从程序存在的问题是不能正确返回数组之和（注释掉的部分可以）；但是这个程序也为我们提供了一个不传入数组长度而间接得到数组长度的方法</p>
+<hr>
+<pre><code>#include&lt;stdio.h&gt;
+int Sum(int *a,int *b)
+{
+    int sum = 0;
+    printf(&quot;a:%d\tb:%d\n&quot;, a, b);//输出a，b指针所代表的地址,单纯的就这个程序来讲，传入的是a[5] = { 1, 2, 3, 4, 5 };这里输出a，b地址相差16是可以理解的
+    //就这个程序，下面依次输出1,4,4；首先第二个4本来是难以理解的，但是正如题首所言，通过此理解指针的移动规则和指针的差值关系，这里a指向数组首元素，b
+    //指向数组尾元素，二者的差值为4而不是16，说明了指针相加减是要根据所指类型来确定和计算的，这个跟*(a+1)等价于a[1]是一样的
+    printf(&quot;%d\t%d\t%d\n&quot;, (b - a) / sizeof(int),b-a,sizeof(int));//其实这里改成for (int i = 0; i &lt;= (b - a) ; i++)就可以得到正确的返回值了
+    for (int i = 0; i &lt;= (b - a) / sizeof(int); i++)
+    {
+        sum += a[i];
+    }
+    //while (a &lt;= b)//while语句可以正确得到返回值；其实while语句的思路同上面讲解的一样
+    //{
+    //    sum += *a;
+    //    printf(&quot;%d\t&quot;, *a);
+    //    a++;
+    //}
+    return sum;
+}
+int main()
+{
+    int a[5] = { 1, 2, 3, 4, 5 };
+    int sum = 0;
+    printf(&quot;%d\t%d\n&quot;, &amp;a[0], &amp;a[4]);
+    sum = Sum(&amp;a[0], &amp;a[4]);//这里提供了一个不传入数组长度而间接得到数组长度的方法
+    printf(&quot;%d\n&quot;, sum);
+    printf(&quot;%d\n&quot;, sizeof(int));
+    return 0;
+}
+</code></pre><hr>
+<ul>
+<li>指针运算符的优先级：<br>*与++同优先级，而且要注意++作用的是在地址上，除非加括号改变作用在取值上，见下面</li>
+</ul>
+<hr>
+<pre><code>#include&lt;stdio.h&gt;
+int data[2] = { 100, 200 };
+int moredata[2] = { 300, 400 };
+int main()
+{
+    int *p1, *p2, *p3;
+    p1 = p2 = data;
+    p3 = moredata;
+    printf(&quot;*p1 = %d\t,*p2 = %d\t,*p3 = %d\n&quot;, *p1, *p2, *p3);//这个输出100,100,300，可以理解
+    //输出100,200,300；注意*p1++，由于++与*的运算级别相当，但是从左往右，所以先输出*p1,然后p1的指向加1，所以下面的输出200；
+    //*++p2，这里++在前面，所以先改变了p2的指向，输出200
+    //(*p3)++是先输出*p3值，这里由于是指针，却实改变了p3指向的值的大小，所以后面的输出*p3时，输出301，
+    //但是由于++在后面，所以这里就没有看到自增的效果，在下面的输出中可以看到这个效果
+    printf(&quot;*p1++ = %d\t,*++p2 = %d\t,(*p3)++ = %d\n&quot;, *p1++, *++p2, (*p3)++);//输出100，200，300
+    printf(&quot;*p1 = %d\t,*p2 = %d\t,*p3 = %d\n&quot;, *p1, *p2, *p3);//输出200,200,301
+    return 0;
+}
+</code></pre><hr>
+<ul>
+<li>指针在内存中的存储：<br>指针也是一个变量，也需要空间来存储，所以所以内存中先分配空间来存储指针变量，这时候</li>
+</ul>
+<hr>
+<pre><code>int *p = &amp;a;
+printf(&quot;%d&quot;,p);
+</code></pre><hr>
+<p>输出的是p中存储的a的访问地址，结果同<code>printf(&quot;%d&quot;,&amp;a);</code>注意如果这里没有对<code>p</code>赋初值就访问的话会报错：使用了未初始化的局部变量<br>但是不要忘了指针也是一个变量，他也有自己的访问地址，可以用<code>printf(&quot;%d&quot;,&amp;p);</code>来输出指针的地址；</p>
+<ul>
+<li>指针与整数相加：</li>
+</ul>
+<p>整数和指针所指向类型的大小（以字节为单位）相乘后加到指针所存储的初地址，等价于*(p+2) = p[2];</p>
+<ul>
+<li>关于指针赋值NULL和指针初始化的问题：</li>
+</ul>
+<p>—————————————————以下文章摘自网络，出处抱歉已忘———————————————————————–</p>
+<pre><code>int *p=NULL;这个NULL是什么意思？
+
+网上百度了下，有人说NULL=0；是在头文件中定义的；
+
+首先要说的是：非堆分配的内存是不需要free的。
+再说p=NULL;指针的变化是 p指向了一个地址为0的内存，这就提醒别人不要对这个指针进行解引用的操作。
+NULL其实就是0x0。p=NULL后，p指向0x0这个地址。此处的地址，你没有访问权限。
+
+ 空指针指没有定位内存的指针，值为null（0），你使用new或者malloc申请了指针p，使用后delete或者free，你必须将指针值设置为null，
+ 否则，p将成为一个非法指针，后续代码如果使用到该指针有可能会造成系统崩溃（内存不可以读不可写），
+ 或者，破坏自身有效内存数据（释放后，又在申请作为别的用途，恰巧系统分配了同一块内存）
+
+ free(p)是只是将malloc申请的内存空间释放，在不改变free（）函数的原型前提下是无法做到P=NULL的，P=NULL相当于空指针，不指向任何有效的对象。
+ 绝对不允许间接使用空指针，否则程序会得到毫无用处的结果或者全部是零的值，或者会突然停止。P=null,之后，p还是原来的类型的，不变的。
+
+
+比如说 我定义了一个整形变量 int a = 1;  同时定义了一个指针p指向这个变量a： int  *p = &amp;a;
+但我用完这个变量和指针的时候我把指针所指向的内存空间释放掉：free（p）；这个时候p所指向的内存空间里面的数据1被清空的，
+但是指针p里面仍然存有一个地址（原来指向a变量内存空间的地址），此时通常再要把指针p设置成空指针：P = NULL。
+我的问题来了：从free（p）；这条语句到p = NULL；这条语句，指针p的状态发生了哪些变化，到底什么样的指针才叫空指针？
+是不是P = NULL；之后，p里面所存放的地址就为空了？是这样理解吗？此时p还有指向的数据类型吗？比如说p还是一个int *型的指针吗？
+ 还有通常用if (p != NULL)来预防错误，就是说如果当指针p为空指针的时候，这个指针就最好不要用，要不然可能会发生内存泄露、空指针一场等错误，为什么呢？
+
+1. int *p = &amp;a; 这样的指针不可用 free ， free 只是针对 malloc， realloc 的内存进行释放。
+2. 空指针是指指针指向地址0，如果是你分配的内存，并且使用 free 释放，然后把指针置成 0 ，只是为了不进行非法的引用。
+如
+char* tmp = (char*)malloc(1024);
+free(tmp);
+tmp = 0;
+
+在 free 后，如果后面再引用 tmp, 因为是个空指针，会导致进行崩溃。
+如果不置为0，比如
+char* tmp = (char*)malloc(1024);
+free(tmp);
+char* tmp2 = (char*)malloc(1024);
+memset(tmp, 0, 1024);
+这样，由于堆管理特性，很可能 memset(tmp, 0, 1024)写了 tmp2 指向的空间。
+这样，释放完 tmp 后，再使用它，谓之野指针。
+使用野指针会造成不可预期的后果，而使用空指针会造成比较确定的后果：崩溃。
+所以 释放完后给指针赋成空，很大程度是避免以后错误地使用指针。
+
+free（p）//报告系统，我要释放内存，系统就将该内存块标记为未使用，但不影响p的值
+p = NULL//free被执行后，你需要将该指针标记为空，因为p指向的内存以被系统收回，不属于你的程序
+这两个语句一般是在一起使用的
+
+总结：为了避免野指针，定义指针的时候必须给指针初始化（以防指针空间的数据没有及时清空），用free(P)释放掉指针所指的内存空间后，
+必须立即同时把p赋值为NULL,避免后面程序指针P而导致意想不到的错误，甚至系统崩溃！
+</code></pre><p>—————————————————以上文章摘自网络,出处抱歉已忘———————————————————————–</p>
+<h3 id="考虑程序："><a href="#考虑程序：" class="headerlink" title="考虑程序："></a>考虑程序：</h3><hr>
+<pre><code>int *p;
+//printf(&quot;%d\n&quot;, *p);//编译器会报错，使用了为初始化的局部变量
+p = NULL;
+printf(&quot;%d\n&quot;, p);//输出0
+int a = 1;
+p = &amp;a;
+printf(&quot;%d\n&quot;, *p);//输出1
+printf(&quot;%d\t%d\n&quot;, p,&amp;a);//输出同样的值，验证了指针中存储的值是所指向变量的地址
+printf(&quot;%d\n&quot;, &amp;p);//输出p指针自身的地址
+p = 0;
+//    printf(&quot;%d\n&quot;, *p);//会报错
+printf(&quot;%d\n&quot;, p);//输出0
+//    p = 1;//报错，除了整数0可以直接赋值给指针变量以外，其余数都不可以在指针未用变量初始化或者动态分    配内存之前赋值给指针
+return 0;
+</code></pre><hr>
+<p>书上的解释是：<br>千万不要解引用为初始化的指针，即：</p>
+<pre><code>int *p;
+p = 5;//严重错误，这个的意思是5存储在p指向的位置
+</code></pre><p>因为p没有初始化，所以5不知道会被存储在什么地方，这可能不会出错，但是也可能会擦写数据或代码，或者导致程序崩溃（但是幸运的是大多数编译器都会报错）<br>切记：<br>在创建一个指针时，系统只分配了存储指针的本身的内存，并未分配存储数据的内存，因此在使用指针之前必须先用已分配的内存初始化它；<br>（指针相当于是一个傀儡，只是借用了别人的存储空间而已）</p>
+<h2 id="const修饰："><a href="#const修饰：" class="headerlink" title="const修饰："></a>const修饰：</h2><p>导语：对于const多用于传入形参的修饰；对于要使用数组形参的函数，一般都选择指针，因为效率更高；如果采用传值传入的话，<br>还要先为形参分配同样大小的内存，然后再拷贝一份传入，这样效率大大降低；但是有时候用指针传入的话容易改变初始值，这时可以<br>const修饰避免</p>
+<h3 id="考虑程序：-1"><a href="#考虑程序：-1" class="headerlink" title="考虑程序："></a>考虑程序：</h3><hr>
+<pre><code>#include&lt;stdio.h&gt;
+void Sum(int a[])//注意这样传入数组也是可以改变原来的值的
+{
+    a[0] = 0;
+}
+int main()
+{
+    int a[2] = { 1, 2 };
+    Sum(a);
+    printf(&quot;%d\n&quot;, a[0]);//这里a[0]的值已经被修改了，所以输出0
+     return 0;
+}
+</code></pre><hr>
+<ul>
+<li>这里特别提几点容易出错的<code>const</code>修饰：</li>
+</ul>
+<p>   (1).<code>const</code>修饰指针（常量指针:<code>const int *p;</code>或者<code>int const *p;</code>二者一样）（常量指针不需要在定义时就赋值）</p>
+<pre><code>const int *p;
+int data[2] = {1 ,2};
+p = data;
+</code></pre><p>   这种情况下，不可以使用p改变data的值，即<code>p[0] = 3;</code>是不允许的，这也是为什么使用<code>const</code>修饰的指针<br>   形参可以防止原数据被修改；但是p仍然是一个变量，可以改变<code>p</code>的指向</p>
+<p>   (2).<code>const</code>数据与指针赋值</p>
+<p>   可以用const修饰的指针指向非const数据，也可以指向const数据；但是不能把const数据地址赋值给普通指针，这与可以通过指针改变数据的理念是一致的</p>
+<p>   (3).<code>const</code>修饰指针（指针常量：<code>int * const p;</code>）（指针常量需要在定义时就赋值，而且之后不可以修改p的指向，但是可以修改指向的值）<br>   注意(1)(3)是可以混合使用的：<code>const int *const p;</code>这是<code>p</code>既不可以改变指向又不可以通过指针改变值</p>
+<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><ul>
+<li>多维数组的理解：</li>
+</ul>
+<p>考虑程序：</p>
+<pre><code>int a[3][2] = { { 1, 2 }, { 3, 4 }, { 5, 6 } };
+int *p = NULL;
+
+printf(&quot;a = %d\ta[0] = %d\n&quot;, a, a[0]);//输出的值相同
+printf(&quot;a+1 = %d\ta[0]+1 = %d\n&quot;, a + 1, a[0] + 1);//输出的值不同，前者与上面的数值上相差8，后者与上面的数值上相差4
+
+//*a输出的值和上面输出的值相同，都是a[0][0]的地址，*a[0]和**a都是输出1，二者等价
+printf(&quot;*a = %d\t*a[0] = %d\t**a = %d\n&quot;, *a, *a[0], **a);
+
+//printf(&quot;a-a[0] = %d\n&quot;, a - a[0]);//报错：操作数类型不兼容
+//p = a;//报错
+</code></pre><p>首先对于多维数组而言，其实更准确的理解是一维数组的叠加；比如说<code>a[3][2]</code>,其实是由三个包含两个元素的一维数组的叠加，<br>所以实际上<code>a</code>和<code>a[0]</code>代表的含义是不同的，<code>a</code>指向的是包含两个元素的数组的地址，由于<code>a</code>是首元素的地址，所以<code>a</code>和<code>a[0]</code>的值是<br>相同的都是<code>a[0][0]</code>的地址，但是这个上面是有递进关系的，要注意理解其中的细微差异。<br>我们知道给指针和地址加1，其值会增加对应类型大小的数值，在这方面，<code>a</code>和<code>a[0]</code>是不同的，因为a指向的对象占用了两个<code>int</code><br>大小，而<code>a[0]</code>只占用了一个，所以第二个输出语句不同；<br>第三个输出语句，<code>*a</code>对<code>a</code>一次解引用，相当于是对<code>a</code>所指向的区域取值，但是<code>a</code>实际上指向的是一个一维数组，相当于是<code>int *</code>级别的，也是一个地址，所以输出的是<code>a[0][0]</code>的地址(这也说明了多维数组首地址指向的递进关系)；而对于<code>*a[0]</code>与<code>**a</code>输出首元素，其实二者是相同的，<code>[]</code>就相当于一次解引用了(<em>*所以用`</em>`解引用对多维数组取值时，要解维数多次才能取到正确的值)</p>
+<p>至于第四个输出语句会报错操作数类型不兼容，这个可以理解为：</p>
+<pre><code>* 实际上在这里,`a`相当于的是`int**`型的，`a[0]`相当于是`int*`类型，二者不在一个级别，编译错误
+</code></pre><ul>
+<li>多维数组综合理解</li>
+</ul>
+<pre><code>int a[4][2] = {{1,2},{3,4},{5,6},{7,8}};
+
+printf(&quot;%d\n&quot;,*(*(a+2)+1))；//输出6
+</code></pre><p>首先对于<code>a+2</code>，<code>a</code>指向的是一个数组，所以这里对<code>a</code>的操作是以数组为单位的，之后对<code>*(a+2)</code>解引用，此时指向的是一个<code>int</code>类型的值的地址，这时才是对单个的元素进行的操作，<code>*(a+2)+1</code>类似于对一维数组的移动，最后是对一维数组的解引用，可以理解</p>
+<h2 id="指向多维数组的指针"><a href="#指向多维数组的指针" class="headerlink" title="指向多维数组的指针"></a>指向多维数组的指针</h2><ul>
+<li>考虑: <code>int (*P)[2];</code>与<code>int *P[2];</code>,首先第一个表示的<code>P</code>才是指向二维数组的指针，后者的<code>P</code>只是表示<code>P</code>是一个一维数组，而且是一个内含两个指针的一维数组；因为<code>*</code>的优先级比<code>[]</code>低，所以第一个必须加括号才行，也因此第二个是先将<code>P</code>视为数组</li>
+</ul>
+<hr>
+<p>未完….</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/C语言/">C语言</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/07/27/C指针与数组/" data-title="C语言指针与数组 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/07/29/线性表/" title="线性表">
+  <strong>上一篇：</strong><br/>
+  <span>
+  线性表</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/07/23/博客配置记录/"  title="博客配置记录">
+ <strong>下一篇：</strong><br/> 
+ <span>博客配置记录
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/07/27/C指针与数组/" data-title="C语言指针与数组" data-url="https://husteryp.github.io/2017/07/27/C指针与数组/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组与指针"><span class="toc-number">2.</span> <span class="toc-text">数组与指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一维数组"><span class="toc-number">2.1.</span> <span class="toc-text">一维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二维数组"><span class="toc-number">2.2.</span> <span class="toc-text">二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针与数组"><span class="toc-number">2.3.</span> <span class="toc-text">指针与数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#程序："><span class="toc-number">2.3.1.</span> <span class="toc-text">程序：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组形参的申明"><span class="toc-number">2.4.</span> <span class="toc-text">数组形参的申明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#考虑程序："><span class="toc-number">2.4.1.</span> <span class="toc-text">考虑程序：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#const修饰："><span class="toc-number">2.5.</span> <span class="toc-text">const修饰：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#考虑程序：-1"><span class="toc-number">2.5.1.</span> <span class="toc-text">考虑程序：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多维数组"><span class="toc-number">2.6.</span> <span class="toc-text">多维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指向多维数组的指针"><span class="toc-number">2.7.</span> <span class="toc-text">指向多维数组的指针</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

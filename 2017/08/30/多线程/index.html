@@ -1,0 +1,1351 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>多线程 | HusterYP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="袁平">
+    
+
+    
+    <meta name="description" content="前言Java多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程">
+<meta property="og:url" content="https://husteryp.github.io/2017/08/30/多线程/index.html">
+<meta property="og:site_name" content="HusterYP">
+<meta property="og:description" content="前言Java多线程">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-03T06:44:10.432Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多线程">
+<meta name="twitter:description" content="前言Java多线程">
+
+    
+    <link rel="alternative" href="/atom.xml" title="HusterYP" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.gif" alt="HusterYP" title="HusterYP"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="HusterYP">HusterYP</a></h1>
+				<h2 class="blog-motto">大学，代码，运动</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:husteryp.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/30/多线程/" title="多线程" itemprop="url">多线程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="袁平" target="_blank" itemprop="author">袁平</a>
+		
+  <p class="article-time">
+    <time datetime="2017-08-30T15:53:22.000Z" itemprop="datePublished"> 发表于 2017-08-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#进程"><span class="toc-number">2.</span> <span class="toc-text">进程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程"><span class="toc-number">3.</span> <span class="toc-text">线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程"><span class="toc-number">3.1.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Runnable接口体现的面向对象思想"><span class="toc-number">3.2.</span> <span class="toc-text">Runnable接口体现的面向对象思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程的安全问题"><span class="toc-number">3.3.</span> <span class="toc-text">多线程的安全问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决上面安全问题的方法"><span class="toc-number">3.4.</span> <span class="toc-text">解决上面安全问题的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单例模式中线程问题的"><span class="toc-number">3.5.</span> <span class="toc-text">单例模式中线程问题的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步函数和同步代码块的区别"><span class="toc-number">3.6.</span> <span class="toc-text">同步函数和同步代码块的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#死锁"><span class="toc-number">3.7.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程间的通信"><span class="toc-number">3.8.</span> <span class="toc-text">多线程间的通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决多生产多消费的效率问题"><span class="toc-number">3.9.</span> <span class="toc-text">解决多生产多消费的效率问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-和sleep-的"><span class="toc-number">3.10.</span> <span class="toc-text">wait()和sleep()的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何停止线程"><span class="toc-number">3.11.</span> <span class="toc-text">如何停止线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#守护线程"><span class="toc-number">3.12.</span> <span class="toc-text">守护线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#join-yield-设置优先级"><span class="toc-number">3.13.</span> <span class="toc-text">join(),yield(),设置优先级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际运用中多线程的写法"><span class="toc-number">3.14.</span> <span class="toc-text">实际运用中多线程的写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#考虑程序"><span class="toc-number">3.15.</span> <span class="toc-text">考虑程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">3.16.</span> <span class="toc-text">注</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Java多线程</p>
+<hr>
+<a id="more"></a>
+<h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><ul>
+<li>就是应用程序在内存中分配的空间(正在运行中的程序)</li>
+</ul>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><ul>
+<li>是进程中负责执行的执行单元，也叫执行路径；一个进程中至少有一个线程在负责该进程的运行<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2></li>
+<li>解决多部分代码同时执行的需求，合理的使用CPU资源</li>
+<li>多线程的运行时<code>CPU</code>的切换完成的，具有一个随机性</li>
+</ul>
+<p>-</p>
+<pre><code>class Fun
+{
+    public void finalize()
+    {
+        System.out.println(&quot;Fun OK&quot;); //垃圾回收线程调用，这里是复写了Object类中的改方法
+    }
+
+}
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        new Fun();
+        new Fun();
+        new Fun();
+        System.gc();  //启动垃圾回收器，但是运行结果具有不确定性
+        System.out.println(&quot;kk&quot;);
+    }
+}
+</code></pre><ul>
+<li>start方法</li>
+</ul>
+<pre><code>&gt; `start`方法可以开启线程并执行`run`方法，注意是两个功能(开启线程，执行`run`)
+</code></pre><ul>
+<li>调用<code>start</code>方法和调用<code>run</code>方法有什么区别<blockquote>
+<p>调用<code>start</code>方法还可以开启一个线程，但是只是调用<code>run</code>方法的话，还是主线程执行的</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>调用线程的<code>this.getName()</code>和<code>Thread.currentThread().getName()</code>有什么区别<blockquote>
+<p><code>this</code>指代的是当前对象，获取的当前对象的名字(默认<code>Thread-n)</code>,但是<code>Thread.currentThread()</code>获取的是当前执行路径</p>
+<p>如果想上所述子线程没有开启的话，其获取的就是<code>main</code>主线程名字</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Runnable接口体现的面向对象思想"><a href="#Runnable接口体现的面向对象思想" class="headerlink" title="Runnable接口体现的面向对象思想"></a><code>Runnable</code>接口体现的面向对象思想</h2><ul>
+<li>根据文档可知实现多线程除了继承<code>Thread</code>类，还可以实现<code>Runnable</code>接口，复写<code>run</code>方法，同时通过<code>Thread</code>的构造函数：<code>Thread(Runnable target)</code></li>
+<li>可知只需要将实现了<code>Runnable</code>的类对象传入即可实现多线程</li>
+<li>下面以多窗口售票为例</li>
+</ul>
+<p>-</p>
+<pre><code>class SaleTicket implements Runnable
+{
+    private int tickets = 100;
+    @Override
+    public void run()
+    {
+        while(true)
+        {
+            if (tickets&gt;0)
+                System.out.println(Thread.currentThread().getName()+&quot;...&quot;+tickets--);
+        }
+    }
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        SaleTicket saleTicket = new SaleTicket();
+        Thread t1 = new Thread(saleTicket);
+        Thread t2 = new Thread(saleTicket);
+        Thread t3 = new Thread(saleTicket);
+        Thread t4 = new Thread(saleTicket);
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
+}
+</code></pre><ul>
+<li><code>Runnable</code>接口的出现使得多线程各自的任务与线程对象分离，只要符合该规则就可以用多线程，这种思想将任务单独抽离成为类(将线程单独进行对象的封装)，同时实现<code>Runnable</code>接口也使得可以传入同一个对象，使得更符合生活场景(降低了线程对象和线程任务的耦合性)</li>
+<li>由于<code>Java</code>中不支持多继承，所以实现<code>Runnable</code>接口可以避免继承<code>Thread</code>类的单继承的局限性</li>
+</ul>
+<h2 id="多线程的安全问题"><a href="#多线程的安全问题" class="headerlink" title="多线程的安全问题"></a>多线程的安全问题</h2><ul>
+<li>如上的代码示例，修改如下</li>
+</ul>
+<p>-</p>
+<pre><code>class SaleTicket implements Runnable
+{
+    private int tickets = 100;
+    @Override
+    public void run()
+    {
+        while(true)
+        {
+            if (tickets&gt;0)
+            {
+                try //这里为了使问题出现，加了一个休眠，使结果会输出0，-1，-2...
+                {
+                    sleep(10);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName() + &quot;...&quot; + tickets--);
+            }
+        }
+    }
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        SaleTicket saleTicket = new SaleTicket();
+        Thread t1 = new Thread(saleTicket);
+        Thread t2 = new Thread(saleTicket);
+        Thread t3 = new Thread(saleTicket);
+        Thread t4 = new Thread(saleTicket);
+        t4.start();
+        t2.start();
+        t1.start();
+        t3.start();
+    }
+}
+</code></pre><ul>
+<li>出现类似上面这种安全问题的原因是<blockquote>
+<ol>
+<li>线程任务中有多条处理到共享数据</li>
+<li>线程任务中有多条对共享数据的操作，一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h2 id="解决上面安全问题的方法"><a href="#解决上面安全问题的方法" class="headerlink" title="解决上面安全问题的方法"></a>解决上面安全问题的方法</h2><ul>
+<li>解决思想<blockquote>
+<p>只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算</p>
+</blockquote>
+</li>
+<li>使用<code>synchronize</code>代码块<blockquote>
+<p>同步锁保证一次只能有一个线程在执行</p>
+<p>   弊端：</p>
+<pre><code>减低了效率(需要判断锁)，但是在可接受的范围之内
+</code></pre></blockquote>
+</li>
+</ul>
+<p>-</p>
+<pre><code>class SaleTicket implements Runnable
+{
+    private int tickets = 100;
+    Object obj = new Object();  //这里的obj必须在run方法之外，如果在run中new，那么相当于每一个线程有不同的obj，没有效果(但是obj的作用是什么？)(见下3,4)
+    @Override
+    public void run()
+    {
+        while(true)
+        {
+            synchronized (obj)  //在这里加一个同步锁
+            {
+                if (tickets &gt; 0)
+                {
+                    try
+                    {
+                        sleep(10);
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    System.out.println(Thread.currentThread().getName() + &quot;...&quot; + tickets--);
+                }
+            }
+        }
+    }
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        SaleTicket saleTicket = new SaleTicket();
+        Thread t1 = new Thread(saleTicket);
+        Thread t2 = new Thread(saleTicket);
+        Thread t3 = new Thread(saleTicket);
+        Thread t4 = new Thread(saleTicket);
+        t4.start();
+        t2.start();
+        t1.start();
+        t3.start();
+    }
+}
+</code></pre><ul>
+<li>但是有时候在多线程中，即使加入了同步机制，依然会出问题，这时肯定是同步除了问题，需遵守线程</li>
+<li>同步的前提<blockquote>
+<p>多个线程在同步中必须使用同一个锁，这才是对多线程同步(如上所述obj的new位置)</p>
+</blockquote>
+</li>
+<li><code>synchronized</code>还可以用于函数，使函数成为同步函数，与同步代码块一样的作用</li>
+</ul>
+<p>-</p>
+<pre><code>public synchronized void add(int n) //此时同步锁需要的对象就是this(函数需要对象调用，同步函数使用的锁就是this)
+{...}
+</code></pre><ul>
+<li>如果同步函数是静态的呢<blockquote>
+<p><code>static</code>方法随着类加载，这是不一定有该类的对象，但是一定有一个该类的字节码文件对象(在堆区中,<code>Java</code>也将字节码文件封装成了一个对象，在<code>JavaAPI</code>中可用<code>Class</code>类描述)，可以使用’类名.class’得到该对象，如果同步函数被<code>static</code>修饰，那么默认的就是该字节码对象做同步锁</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="单例模式中线程问题的"><a href="#单例模式中线程问题的" class="headerlink" title="单例模式中线程问题的"></a>单例模式中线程问题的</h2><ul>
+<li>懒汉式(延迟加载模式)，在多线程并发访问时会出现线程安全问题，加了同步就可以解决问题，但是降低效率(可以通过<code>if</code>对单例对象双重判断的形式)；饿汉式相对线程安全</li>
+</ul>
+<p>-</p>
+<pre><code>------------饿汉式--------------
+class Single
+{
+    private static final Single SINGLE = new Single(); //饿汉式
+    private Single()
+    {}
+    public static Single getInstance()
+    {
+        return SINGLE;
+    }
+
+}
+class Fun implements Runnable
+{
+
+    public void run()
+    {
+        Single single = Single.getInstance(); //线程安全(前提只是在获取对象上，如果做了共享数据运算，仍然不安全)
+    }
+}
+--------------------------------
+-------------懒汉式-------------
+class Single
+{
+    private static Single s = null;
+    private Single()
+    {
+        if (s == null) //这里通过双重判断，可以减少对同步锁的不断判断
+        {
+            synchronized (Single.class)//使用字节码对象做锁
+            {
+                if (s == null) //这里必须还要判断一次，否则仍然会有安全问题
+                    s = new Single();
+            }
+        }
+    }
+    public static Single getInstance()
+    {
+        return s;
+    }
+}
+class Fun implements Runnable
+{
+
+    public void run()
+    {
+        Single single = Single.getInstance();
+    }
+}
+--------------------------------    
+</code></pre><h2 id="同步函数和同步代码块的区别"><a href="#同步函数和同步代码块的区别" class="headerlink" title="同步函数和同步代码块的区别"></a>同步函数和同步代码块的区别</h2><ul>
+<li>同步函数只能用<code>this</code>作为锁，同步代码块可以使用任意对象作为锁</li>
+<li>如果说一个类中只需要一个锁，这时可以考虑使用同步函数吗，使用<code>this</code>，写法简单;但是如果一个类中需要多个锁，还有多个类中使用同一个锁，这时只能使用同步代码块</li>
+</ul>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><ul>
+<li>同步嵌套<blockquote>
+<p>开发的时候尽量避免同步嵌套</p>
+</blockquote>
+</li>
+</ul>
+<p>-</p>
+<pre><code>class SaleTicket implements Runnable
+{
+    private int tickets = 1000;
+    private Object obj = new Object();
+    public static boolean flag = true;
+    public void run()
+    {
+        if (flag)
+            while(true)
+            {
+                synchronized (obj)  //这里用的obj锁
+                {
+                    Sale();
+                }
+            }
+        else
+            while(true)
+                Sale();
+    }
+    public synchronized void Sale()  //this锁
+    {
+        synchronized (obj)  //又用了obj锁
+        {
+            if (tickets&gt;0)
+            {
+                try
+                {
+                    Thread.sleep(10);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName()+&quot;...&quot;+tickets--);
+            }
+        }
+    }
+}
+public class Demo
+{
+    public static void main(String[]args)
+    {
+        SaleTicket s = new SaleTicket();
+        Thread t1 = new Thread(s);
+        Thread t2 = new Thread(s);
+        t1.start();
+        SaleTicket.flag = false;
+        t2.start();
+    }
+}
+</code></pre><ul>
+<li>死锁的实例</li>
+</ul>
+<p>-</p>
+<pre><code>class Task implements Runnable
+{
+    private boolean flag;
+
+    public Task(boolean flag)
+    {
+        this.flag = flag;
+    }
+
+    public void run()
+    {
+        if (flag)
+        {
+            while (true)
+                synchronized (Lock.LOCKA)
+                {
+                    System.out.println(&quot;if...LOCKA&quot;);
+                    synchronized (Lock.LOCKB)
+                    {
+                        System.out.println(&quot;if...LOCKB&quot;);
+                    }
+                }
+        } else
+        {
+            while (true)
+                synchronized (Lock.LOCKB)
+                {
+                    System.out.println(&quot;else...LOCKA&quot;);
+                    synchronized (Lock.LOCKA)
+                    {
+                        System.out.println(&quot;else...LOCKB&quot;);
+                    }
+                }
+        }
+    }
+}
+
+class Lock
+{
+    public static final Object LOCKA = new Object();
+    public static final Object LOCKB = new Object();
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        Task t1 = new Task(true);
+        Task t2 = new Task(false);
+        new Thread(t1).start();
+        new Thread(t2).start();
+    }
+}
+</code></pre><h2 id="多线程间的通信"><a href="#多线程间的通信" class="headerlink" title="多线程间的通信"></a>多线程间的通信</h2><ul>
+<li>多个线程都在处理同一个资源，但是处理的任务却不一样</li>
+<li>生产者，消费者(生产一个消费一个)(等待/唤醒机制)(允许空唤醒，即<code>notify</code>的时候没有<code>wait</code>线程)<blockquote>
+<p><code>wait()</code>：让线程处于冻结状态，存储到线程池中</p>
+<p><code>notify()</code>:任意唤醒一个线程<code>(wait()</code>和<code>notify()</code>方法必须要用在同步当中，因为他们是用来操作同步锁上的线程的)(而且<code>wait</code>和<code>notify</code>在使用时，必须标识他们所属于的锁，标识方法是：锁对象<code>.wait()</code>,锁对象<code>.notify()</code>,锁对象那个<code>.notifyAll()</code></p>
+<p>相同锁的<code>notify()</code>,可以获取相同锁的<code>wait()</code>,也就是说不同的锁不可以唤醒其他锁的<code>wait()</code>线程，相当于每个锁都有一个线程池(这也可以理解为什么<code>wait</code>和<code>notify</code>方法在<code>Object</code>类中了))</p>
+</blockquote>
+</li>
+</ul>
+<p>-</p>
+<pre><code>class Goods
+{
+    private String name = &quot;Goods&quot;;
+    private int count = 1;
+    private boolean flag = true;  
+    //同时要注意的是，wait()和notify()也属于生产和消费的内容
+
+    public synchronized void get()  //这里要用同步，不然会报错
+    {
+        if(!flag)
+            try
+            {
+                wait();  //等下次被唤醒后，仍从wait这里开始运行，不需要再判断flag,除非进行到下一次while
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        System.out.println(&quot;Consumer......&quot; + name + &quot;...&quot; + count);
+        flag = false;
+        notify();
+    }
+
+    public synchronized void set()
+    {
+        if(flag)
+            try
+            {
+                wait();
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        count++;
+        System.out.println(&quot;Producer....&quot; + name + &quot;...&quot; + count);
+        flag = true;
+        notify();
+    }
+}
+
+class Producer implements Runnable
+{
+    private Goods goods;
+
+    public Producer(Goods goods)
+    {
+        this.goods = goods;
+    }
+
+    public void run()
+    {
+        while(true)
+            goods.set();
+    }
+}
+
+class Consumer implements Runnable
+{
+    private Goods goods;
+
+    Consumer(Goods goods)
+    {
+        this.goods = goods;
+    }
+
+    public void run()
+    {
+        while(true)
+            goods.get();
+    }
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        Goods goods = new Goods();
+        Producer producer = new Producer(goods);
+        Consumer consumer = new Consumer(goods);
+        Thread t1 = new Thread(producer);
+        Thread t2 = new Thread(consumer);
+        t1.start();
+        t2.start();
+    }
+}
+</code></pre><ul>
+<li>如果要多生产多消费的情况</li>
+</ul>
+<p>-</p>
+<pre><code>class Goods
+{
+    private String name = &quot;Goods&quot;;
+    private int count = 1;
+    private boolean flag = true;  
+
+    public synchronized void get()
+    {
+        while(!flag) //这里改用while来判断，是因为在wait被唤醒后，从这里开始执行，而不会在判断if(所以用if会引起错误)
+            try
+            {
+                wait();
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        System.out.println(&quot;Consumer......&quot; + name + &quot;...&quot; + count);
+        flag = false;
+        notifyAll(); //这里改用唤醒全部，是为了避免同类唤醒同类导致死锁(但是这样的话又造成了不必要的锁判断)(思路：如果能特定唤醒对方中的一个就好了，解决方法见下)
+    }
+
+    public synchronized void set()
+    {
+        while(flag)
+            try
+            {
+                wait();
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        count++;
+        System.out.println(&quot;Producer....&quot; + name + &quot;...&quot; + count);
+        flag = true;
+        notifyAll();
+    }
+}
+
+class Producer implements Runnable
+{
+    private Goods goods;
+
+    public Producer(Goods goods)
+    {
+        this.goods = goods;
+    }
+
+    public void run()
+    {
+        while(true)
+            goods.set();
+    }
+}
+
+class Consumer implements Runnable
+{
+    private Goods goods;
+
+    Consumer(Goods goods)
+    {
+        this.goods = goods;
+    }
+
+    public void run()
+    {
+        while(true)
+            goods.get();
+    }
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        Goods goods = new Goods();
+        Producer producer = new Producer(goods);
+        Consumer consumer = new Consumer(goods);
+        Thread t1 = new Thread(producer);
+        Thread t2 = new Thread(producer);
+        Thread t3 = new Thread(producer);
+        Thread t4 = new Thread(consumer);
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
+}
+</code></pre><h2 id="解决多生产多消费的效率问题"><a href="#解决多生产多消费的效率问题" class="headerlink" title="解决多生产多消费的效率问题"></a>解决多生产多消费的效率问题</h2><ul>
+<li>使用<code>JDK1.5 java.util.concurrent.locks</code>包中的对象</li>
+<li><p><code>Locks</code>接口：他的出现比<code>synchronized</code>有更多的操作</p>
+<blockquote>
+<p>lock():获取锁</p>
+<p>unlock():释放锁</p>
+</blockquote>
+</li>
+<li><p>同步代码块或同步函数的锁操作是隐式的，<code>JDK1.5 Lock</code>接口，按照面向对象的思想，将锁单独封装成了一个对象，并提供了对锁的显示操作</p>
+</li>
+<li><code>Lock</code>接口就是同步的替代<blockquote>
+<ol>
+<li><p>将程序中的同步更换为Lock接口的形式(看到接口的形式，首先应该找其是否已实现的子类，如果没有再自己复写)</p>
+</li>
+<li><p>替换完后运行失败了，因为wait没有了同步区域，没有了所属的同步锁，同步升级了，其中锁已经不是任意对象，而是Lock类型的对象。</p>
+</li>
+</ol>
+<p>查看文档，Condition接口替代了Object中的监视器方法(以前将监视器封装到每一个对象当中，现在将监视器方法封装到了Condition对象中)</p>
+<ol>
+<li>同过Lock接口的newCondition方法创建一个Condition对象来绑定锁(将监视器方法单独封装成了对象，再与锁相绑定)</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>-</p>
+<pre><code>class Goods
+{
+    private String name = &quot;Goods&quot;;
+    private int count = 1;
+    private Lock lock = new ReentrantLock();
+    private Condition producer_con = lock.newCondition();
+    private Condition consumer_con = lock.newCondition();
+    private boolean flag = true;  //这里之所以还要一个标志，是为了在开始的时候不知道是哪个线程得到执行权
+
+    public void get()
+    {
+        lock.lock(); //获取锁
+        try
+        {
+            while (!flag)
+                try
+                {
+                    consumer_con.await();
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            System.out.println(&quot;Consumer......&quot; + name + &quot;...&quot; + count);
+            flag = false;
+            producer_con.signal(); //在这里唤醒生产者的一个线程，可以避免唤醒全部，提高效率
+        } finally
+        {
+            lock.unlock();  //释放锁，锁一定要释放，所以写在finally中，这里也是try..finally的应用
+            //这是为了防止中间产生异常导致代码退出，使锁为释放，造成死锁
+        }
+    }
+
+    public void set()
+    {
+        lock.lock();
+        try
+        {
+            while (flag)
+                try
+                {
+                    producer_con.await();
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            count++;
+            System.out.println(&quot;Producer....&quot; + name + &quot;...&quot; + count);
+            flag = true;
+            consumer_con.signal();
+        } finally
+        {
+            lock.unlock();
+        }
+    }
+}
+
+class Producer implements Runnable
+{
+    private Goods goods;
+
+    public Producer(Goods goods)
+    {
+        this.goods = goods;
+    }
+
+    public void run()
+    {
+        while (true)
+            goods.set();
+    }
+}
+
+class Consumer implements Runnable
+{
+    private Goods goods;
+
+    Consumer(Goods goods)
+    {
+        this.goods = goods;
+    }
+
+    public void run()
+    {
+        while (true)
+            goods.get();
+    }
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        Goods goods = new Goods();
+        Producer producer = new Producer(goods);
+        Consumer consumer = new Consumer(goods);
+        Thread t1 = new Thread(producer);
+        Thread t2 = new Thread(producer);
+        Thread t3 = new Thread(producer);
+        Thread t4 = new Thread(consumer);
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
+}
+</code></pre><h2 id="wait-和sleep-的"><a href="#wait-和sleep-的" class="headerlink" title="wait()和sleep()的"></a>wait()和sleep()的</h2><ul>
+<li>相同点：都可以让线程处于冻结状态</li>
+<li>不同点 <blockquote>
+<ol>
+<li><p>wait()可以指定时间，也可以不指定时间；sleep()必须指定时间</p>
+</li>
+<li><p>wait()：释放CUP资源，同时释放锁；sleep()释放CPU资源，但是不释放锁</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h2 id="如何停止线程"><a href="#如何停止线程" class="headerlink" title="如何停止线程"></a>如何停止线程</h2><ul>
+<li>原理：让<code>run</code>方法结束(线程任务中一般都有循环)，只要控制住循环就可以结束<code>run</code>方法，停止线程，用一个标记</li>
+<li>中断状态即冻结状态，<code>interrupted()</code>可以强制唤醒处于中断状态的线程，但是会抛出异常，使用该方法常用于通过标志位结束线程时却陷入死锁，此时使用该方法来强制唤醒</li>
+</ul>
+<p>-</p>
+<pre><code>class Test implements Runnable
+{
+    private boolean flag = true;
+
+    public synchronized void run()
+    {
+        while (flag)
+        {
+            try
+            {
+                wait(); //在这里陷入死锁
+            } catch (InterruptedException e)
+            {
+                System.out.println(Thread.currentThread().getName() + &quot;...&quot; + e.toString());
+                flag = false; //在这里改变标志位也可以
+            }
+            System.out.println(Thread.currentThread().getName() + &quot;....&quot; + &quot;Hello World&quot;);
+        }
+    }
+
+    public void changeFlag()
+    {
+        flag = false;
+    }
+}
+
+public class Demo
+{
+    public static void main(String[] args)
+    {
+        Test t = new Test();
+        Thread t1 = new Thread(t);
+        Thread t2 = new Thread(t);
+        t1.start();
+        t2.start();
+        for (int i = 0; i &lt; 50; i++)
+        {
+            System.out.println(Thread.currentThread().getName() + &quot;...&quot; + &quot;Hello World&quot;);
+            if (i == 40)
+            {
+                t1.interrupt();
+                t2.interrupt();  //强制唤醒
+    //            t.changeFlag(); //同时改变标志为位
+            }
+        }
+    }
+}
+</code></pre><h2 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h2><ul>
+<li>后台线程，<code>setDaemon()</code>方法</li>
+<li>虚拟机的垃圾回收就是后台线程</li>
+</ul>
+<h2 id="join-yield-设置优先级"><a href="#join-yield-设置优先级" class="headerlink" title="join(),yield(),设置优先级"></a>join(),yield(),设置优先级</h2><h2 id="实际运用中多线程的写法"><a href="#实际运用中多线程的写法" class="headerlink" title="实际运用中多线程的写法"></a>实际运用中多线程的写法</h2><pre><code>public class Demo
+{
+    public static void main(String[] args)
+    {
+        Thread t = new Thread()
+        {
+            public void run()
+            {
+                for (int i = 0; i &lt; 50; i++)
+                {
+                    System.out.println(&quot;x=&quot; + i);
+                }
+            }
+        };
+//        t.join();
+        t.start();
+
+        Runnable r = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                for (int i = 0; i &lt; 50; i++)
+                {
+                    System.out.println(&quot;x=&quot; + i);
+                }
+            }
+        };
+        new Thread(r).start();
+
+        for (int i = 0; i &lt; 50; i++)
+        {
+            System.out.println(&quot;x=&quot; + i);
+        }
+    }
+}
+</code></pre><h2 id="考虑程序"><a href="#考虑程序" class="headerlink" title="考虑程序"></a>考虑程序</h2><pre><code>//下面是一个匿名内部类，子类对象，所以调用父类Thread的run
+public class Demo
+{
+    public static void main(String[]args)
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                System.out.println(&quot;Runnable run&quot;);
+            }
+        }){
+            public void run()
+            {
+                System.out.println(&quot;Thread run&quot;);
+            }
+        }.start(); //输出:Thread run
+    }
+}
+</code></pre><h2 id="注"><a href="#注" class="headerlink" title="注"></a>注</h2><ul>
+<li>抛出异常会结束当前异常所在线程，以前所说的结束程序其实不准确(因为以前只有一个主线程)，其他没有异常的线程不受影响</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://husteryp.github.io/2017/08/30/多线程/" data-title="多线程 | HusterYP" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/09/03/Xml文档解析/" title="Xml文档解析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Xml文档解析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/08/28/面向对象/"  title="面向对象">
+ <strong>下一篇：</strong><br/> 
+ <span>面向对象
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/08/30/多线程/" data-title="多线程" data-url="https://husteryp.github.io/2017/08/30/多线程/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#进程"><span class="toc-number">2.</span> <span class="toc-text">进程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程"><span class="toc-number">3.</span> <span class="toc-text">线程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程"><span class="toc-number">3.1.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Runnable接口体现的面向对象思想"><span class="toc-number">3.2.</span> <span class="toc-text">Runnable接口体现的面向对象思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程的安全问题"><span class="toc-number">3.3.</span> <span class="toc-text">多线程的安全问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决上面安全问题的方法"><span class="toc-number">3.4.</span> <span class="toc-text">解决上面安全问题的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单例模式中线程问题的"><span class="toc-number">3.5.</span> <span class="toc-text">单例模式中线程问题的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步函数和同步代码块的区别"><span class="toc-number">3.6.</span> <span class="toc-text">同步函数和同步代码块的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#死锁"><span class="toc-number">3.7.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多线程间的通信"><span class="toc-number">3.8.</span> <span class="toc-text">多线程间的通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决多生产多消费的效率问题"><span class="toc-number">3.9.</span> <span class="toc-text">解决多生产多消费的效率问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-和sleep-的"><span class="toc-number">3.10.</span> <span class="toc-text">wait()和sleep()的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何停止线程"><span class="toc-number">3.11.</span> <span class="toc-text">如何停止线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#守护线程"><span class="toc-number">3.12.</span> <span class="toc-text">守护线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#join-yield-设置优先级"><span class="toc-number">3.13.</span> <span class="toc-text">join(),yield(),设置优先级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际运用中多线程的写法"><span class="toc-number">3.14.</span> <span class="toc-text">实际运用中多线程的写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#考虑程序"><span class="toc-number">3.15.</span> <span class="toc-text">考虑程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注"><span class="toc-number">3.16.</span> <span class="toc-text">注</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C语言/" title="C语言">C语言<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git和GitHub/" title="Git和GitHub">Git和GitHub<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/并发与并行/" title="并发与并行">并发与并行<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/数据结构/" title="数据结构">数据结构<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂文/" title="杂文">杂文<sup>5</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://github.com/HusterYP" target="_blank" title="我的GitHub">我的GitHub</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 路漫漫，其修远兮 <br/>
+			Love World. Explore Life</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/HusterYP" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		<a href="https://www.linkedin.com/in/HusterYP" target="_blank" class="icon-linkedin" title="linkedin"></a>
+		
+		
+		
+		
+		
+		<a href="mailto:1772662957@qq.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2017 
+		
+		<a href="/about" target="_blank" title="袁平">袁平</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"HusterYP"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'HusterYP';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
